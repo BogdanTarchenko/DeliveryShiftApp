@@ -9,19 +9,26 @@
 /* Begin PBXBuildFile section */
 		FC6D62BC2C342E4400A47C18 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC6D62BB2C342E4400A47C18 /* AppDelegate.swift */; };
 		FC6D62BE2C342E4400A47C18 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC6D62BD2C342E4400A47C18 /* SceneDelegate.swift */; };
-		FC6D62C02C342E4400A47C18 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC6D62BF2C342E4400A47C18 /* ViewController.swift */; };
 		FC6D62C52C342E4600A47C18 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FC6D62C42C342E4600A47C18 /* Assets.xcassets */; };
 		FC6D62C82C342E4600A47C18 /* Base in Resources */ = {isa = PBXBuildFile; fileRef = FC6D62C72C342E4600A47C18 /* Base */; };
+		FC7B9F192C39AFA100819F84 /* PickButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC7B9F152C39AFA100819F84 /* PickButtonView.swift */; };
+		FC7B9F1A2C39AFA100819F84 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC7B9F162C39AFA100819F84 /* ViewController.swift */; };
+		FC7B9F1B2C39AFA100819F84 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC7B9F172C39AFA100819F84 /* SecondViewController.swift */; };
+		FC7B9F1C2C39AFA100819F84 /* ThirdViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC7B9F182C39AFA100819F84 /* ThirdViewController.swift */; };
+		FC7B9F1F2C39AFB300819F84 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = FC7B9F1E2C39AFB300819F84 /* SnapKit */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		FC6D62B82C342E4400A47C18 /* DeliveryShiftApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DeliveryShiftApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FC6D62BB2C342E4400A47C18 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FC6D62BD2C342E4400A47C18 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		FC6D62BF2C342E4400A47C18 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		FC6D62C42C342E4600A47C18 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FC6D62C72C342E4600A47C18 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		FC6D62C92C342E4600A47C18 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FC7B9F152C39AFA100819F84 /* PickButtonView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PickButtonView.swift; path = ../../../test/test/PickButtonView.swift; sourceTree = "<group>"; };
+		FC7B9F162C39AFA100819F84 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ViewController.swift; path = ../../../test/test/ViewController.swift; sourceTree = "<group>"; };
+		FC7B9F172C39AFA100819F84 /* SecondViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SecondViewController.swift; path = ../../../test/test/SecondViewController.swift; sourceTree = "<group>"; };
+		FC7B9F182C39AFA100819F84 /* ThirdViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ThirdViewController.swift; path = ../../../test/test/ThirdViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,6 +36,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FC7B9F1F2C39AFB300819F84 /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -54,14 +62,57 @@
 		FC6D62BA2C342E4400A47C18 /* DeliveryShiftApp */ = {
 			isa = PBXGroup;
 			children = (
+				FC6D62CF2C347F6500A47C18 /* Application */,
+				FC6D62D12C3482F700A47C18 /* DeliveryCalculation */,
+				FC6D62D62C35299800A47C18 /* History */,
+				FC6D62D72C3529B600A47C18 /* Profile */,
+				FC6D62D02C347F8700A47C18 /* Resources */,
+			);
+			path = DeliveryShiftApp;
+			sourceTree = "<group>";
+		};
+		FC6D62CF2C347F6500A47C18 /* Application */ = {
+			isa = PBXGroup;
+			children = (
 				FC6D62BB2C342E4400A47C18 /* AppDelegate.swift */,
 				FC6D62BD2C342E4400A47C18 /* SceneDelegate.swift */,
-				FC6D62BF2C342E4400A47C18 /* ViewController.swift */,
+			);
+			path = Application;
+			sourceTree = "<group>";
+		};
+		FC6D62D02C347F8700A47C18 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
 				FC6D62C42C342E4600A47C18 /* Assets.xcassets */,
 				FC6D62C62C342E4600A47C18 /* LaunchScreen.storyboard */,
 				FC6D62C92C342E4600A47C18 /* Info.plist */,
 			);
-			path = DeliveryShiftApp;
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		FC6D62D12C3482F700A47C18 /* DeliveryCalculation */ = {
+			isa = PBXGroup;
+			children = (
+				FC7B9F152C39AFA100819F84 /* PickButtonView.swift */,
+				FC7B9F172C39AFA100819F84 /* SecondViewController.swift */,
+				FC7B9F182C39AFA100819F84 /* ThirdViewController.swift */,
+				FC7B9F162C39AFA100819F84 /* ViewController.swift */,
+			);
+			path = DeliveryCalculation;
+			sourceTree = "<group>";
+		};
+		FC6D62D62C35299800A47C18 /* History */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = History;
+			sourceTree = "<group>";
+		};
+		FC6D62D72C3529B600A47C18 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Profile;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -80,6 +131,9 @@
 			dependencies = (
 			);
 			name = DeliveryShiftApp;
+			packageProductDependencies = (
+				FC7B9F1E2C39AFB300819F84 /* SnapKit */,
+			);
 			productName = DeliveryShiftApp;
 			productReference = FC6D62B82C342E4400A47C18 /* DeliveryShiftApp.app */;
 			productType = "com.apple.product-type.application";
@@ -108,6 +162,9 @@
 				Base,
 			);
 			mainGroup = FC6D62AF2C342E4400A47C18;
+			packageReferences = (
+				FC7B9F1D2C39AFB300819F84 /* XCRemoteSwiftPackageReference "SnapKit" */,
+			);
 			productRefGroup = FC6D62B92C342E4400A47C18 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -134,8 +191,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FC6D62C02C342E4400A47C18 /* ViewController.swift in Sources */,
 				FC6D62BC2C342E4400A47C18 /* AppDelegate.swift in Sources */,
+				FC7B9F192C39AFA100819F84 /* PickButtonView.swift in Sources */,
+				FC7B9F1A2C39AFA100819F84 /* ViewController.swift in Sources */,
+				FC7B9F1B2C39AFA100819F84 /* SecondViewController.swift in Sources */,
+				FC7B9F1C2C39AFA100819F84 /* ThirdViewController.swift in Sources */,
 				FC6D62BE2C342E4400A47C18 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -282,7 +342,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = BUF892U9LY;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = DeliveryShiftApp/Info.plist;
+				INFOPLIST_FILE = DeliveryShiftApp/Resources/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -309,7 +369,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = BUF892U9LY;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = DeliveryShiftApp/Info.plist;
+				INFOPLIST_FILE = DeliveryShiftApp/Resources/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -349,6 +409,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		FC7B9F1D2C39AFB300819F84 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.7.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		FC7B9F1E2C39AFB300819F84 /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = FC7B9F1D2C39AFB300819F84 /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = FC6D62B02C342E4400A47C18 /* Project object */;
 }
