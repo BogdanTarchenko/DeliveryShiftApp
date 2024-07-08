@@ -13,26 +13,32 @@ class PickButtonView: UIView {
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .left
+        label.textColor = UIColor(named: "TextSecondaryColor")
         return label
     }()
     
     private var button: UIButton = {
         let button = UIButton()
         button.layer.borderWidth = 1
-        button.layer.borderColor = UIColor.gray.cgColor
+        button.layer.borderColor = UIColor.init(named: "BorderLightColor")?.cgColor
         button.layer.cornerRadius = 10
         return button
     }()
     
     private let icon: UIImageView = {
         let imageView = UIImageView()
-        imageView.tintColor = .gray
         return imageView
+    }()
+    
+    private let valueLabel: UILabel = {
+        let label = UILabel()
+        label.textAlignment = .left
+        label.textColor = UIColor(named: "TextSecondaryColor")
+        return label
     }()
     
     private let chevron: UIImageView = {
         let imageView = UIImageView(image: UIImage(named: "chevron-down.pdf"))
-        imageView.tintColor = .gray
         return imageView
     }()
     
@@ -54,35 +60,41 @@ class PickButtonView: UIView {
     }
 
     private func configurePickButtonView() {
-        self.addSubview(titleLabel)
-        self.addSubview(button)
-        button.addSubview(icon)
-        button.addSubview(chevron)
-        self.addSubview(clickableWords)
         
+        self.addSubview(titleLabel)
         titleLabel.snp.makeConstraints { make in
             make.top.leading.equalToSuperview()
         }
         
+        self.addSubview(button)
         button.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview()
-            make.top.equalTo(titleLabel.snp.bottom).offset(20)
+            make.top.equalTo(titleLabel.snp.bottom).offset(6)
             make.height.equalTo(40)
         }
         
+        button.addSubview(icon)
         icon.snp.makeConstraints { make in
-            make.leading.equalTo(button.snp.leading)
+            make.leading.equalTo(button.snp.leading).inset(12)
             make.centerY.equalTo(button)
         }
         
+        button.addSubview(valueLabel)
+        valueLabel.snp.makeConstraints { make in
+            make.leading.equalTo(icon.snp.leading).inset(24)
+            make.centerY.equalTo(button)
+        }
+        
+        button.addSubview(chevron)
         chevron.snp.makeConstraints { make in
-            make.trailing.equalTo(button.snp.trailing)
+            make.trailing.equalTo(button.snp.trailing).inset(12)
             make.centerY.equalTo(button)
         }
         
+        self.addSubview(clickableWords)
         clickableWords.snp.makeConstraints { make in
-            make.top.equalTo(button.snp.bottom).offset(20)
-            make.leading.equalToSuperview()
+            make.top.equalTo(button.snp.bottom).offset(4)
+            make.leading.bottom.equalToSuperview()
         }
         
         button.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
@@ -96,6 +108,10 @@ class PickButtonView: UIView {
         self.icon.image = icon
     }
     
+    func setValue(_ title: String) {
+        valueLabel.text = title
+    }
+    
     func setClickableWords(_ words: [String]) {
         for view in clickableWords.arrangedSubviews {
             clickableWords.removeArrangedSubview(view)
@@ -106,7 +122,7 @@ class PickButtonView: UIView {
             let label = UILabel()
             let attributedText = NSAttributedString(string: word, attributes: [NSAttributedString.Key.underlineStyle: NSUnderlineStyle.single.rawValue])
             label.attributedText = attributedText
-            label.textColor = .gray
+            label.textColor = UIColor(named: "TextTertiaryColor")
             label.isUserInteractionEnabled = true
             let tapGesture = UITapGestureRecognizer(target: self, action: #selector(wordTapped(_:)))
             label.addGestureRecognizer(tapGesture)
@@ -119,8 +135,6 @@ class PickButtonView: UIView {
     }
     
     @objc private func wordTapped(_ sender: UITapGestureRecognizer) {
-        if let label = sender.view as? UILabel {
-            // Добавить автовыбор города по клику на него
-        }
+        // Выбирается город
     }
 }

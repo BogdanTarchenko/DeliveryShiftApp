@@ -23,11 +23,32 @@ class ViewController: UIViewController {
     var header = UILabel()
     var calculateButton = UIButton()
     var contentView = UIView()
-    var shippedFromLabel = UILabel()
-    var shippedToLabel = UILabel()
     var packageSizeLabel = UILabel()
-    var shippedFromView = PickButtonView()
-    var shippedToView = PickButtonView()
+    
+    var shippedFromView: PickButtonView = {
+        let shippedFromView = PickButtonView()
+        shippedFromView.setTitle("Город отправки")
+        shippedFromView.setIcon(icon: UIImage(named: "marker"))
+        shippedFromView.setValue("Москва")
+        shippedFromView.setClickableWords(["Санкт-Петербург", "Новосибирск", "Томск"])
+        return shippedFromView
+    }()
+    
+    var shippedToView: PickButtonView = {
+        let shippedToView = PickButtonView()
+        shippedToView.setTitle("Город назначения")
+        shippedToView.setIcon(icon: UIImage(named: "pointer"))
+        shippedToView.setValue("Санкт-Петербург")
+        shippedToView.setClickableWords(["Новосибирск", "Томск", "Москва"])
+        return shippedToView
+    }()
+    var packageSizeView: PickButtonView = {
+        let packageSizeView = PickButtonView()
+        packageSizeView.setTitle("Размер посылки")
+        packageSizeView.setIcon(icon: UIImage(named: "email.pdf"))
+        packageSizeView.setValue("Конверт")
+        return packageSizeView
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -60,23 +81,17 @@ class ViewController: UIViewController {
         self.calculationMenu.addSubview(self.contentView)
         configureContentView()
         
-        self.contentView.addSubview(self.shippedFromLabel)
-        configureShippedFromLabel()
-        
         self.contentView.addSubview(self.shippedFromView)
-        shippedFromView.setTitle("Город отправки")
-        shippedFromView.setIcon(icon: UIImage(named: "marker"))
-        shippedFromView.setClickableWords(["Санкт-Петербург", "Новосибирск", "Томск"])
+        configureShippedFromView()
         
         self.contentView.addSubview(self.shippedToView)
         configureShippedToView()
-        shippedToView.setTitle("Город назначения")
-        shippedToView.setIcon(icon: UIImage(named: "pointer"))
-        shippedToView.setClickableWords(["Новосибирск", "Томск", "Москва"])
+        
+        self.contentView.addSubview(self.packageSizeView)
+        configurePackageSizeView()
     }
     
     func configureWorkspaceView() {
-        
         self.workspaceView.snp.makeConstraints { make in
             make.top.leading.trailing.equalToSuperview()
             make.bottom.equalToSuperview().inset(100)
@@ -84,42 +99,44 @@ class ViewController: UIViewController {
     }
     
     func configureCalculationMenu() {
-        
         self.calculationMenu.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview().inset(16)
             make.centerY.equalTo(workspaceView)
-            make.height.equalTo(560)
+            make.height.equalTo(500)
         }
-        
         self.calculationMenu.backgroundColor = .white
         self.calculationMenu.layer.cornerRadius = 32
     }
     
     func configureHeader() {
-        
         self.header.snp.makeConstraints { make in
             make.leading.trailing.equalTo(calculationMenu).inset(16)
             make.top.equalTo(calculationMenu).inset(32)
         }
-        
         self.header.text = "Рассчитать доставку"
+        self.header.textColor = UIColor(named: "TextPrimaryColor")
         self.header.textAlignment = .center
         self.header.font = .systemFont(ofSize: 28, weight: .bold)
     }
     
     func configureCalculateButton() {
-        
         self.calculateButton.snp.makeConstraints { make in
             make.leading.trailing.equalTo(calculationMenu).inset(16)
             make.bottom.equalTo(calculationMenu).inset(32)
-            make.height.equalTo(66)
+            make.height.equalTo(60)
         }
-        
+        calculateButton.addTarget(self, action: #selector(showShippingMethodScreen), for: .touchUpInside)
         self.calculateButton.setTitle("Рассчитать", for: .normal)
         self.calculateButton.setTitleColor(.white, for: .normal)
-        self.calculateButton.titleLabel?.font = .systemFont(ofSize: 18, weight: .bold)
+        self.calculateButton.titleLabel?.font = .systemFont(ofSize: 18, weight: .semibold)
         self.calculateButton.backgroundColor = UIColor(named: "ButtonColor")
-        self.calculateButton.layer.cornerRadius = 32
+        self.calculateButton.layer.cornerRadius = 30
+    }
+    
+    @objc func showShippingMethodScreen() {
+        let shippingMethodViewController = ShippingMethodViewController()
+        shippingMethodViewController.modalPresentationStyle = .fullScreen
+        present(shippingMethodViewController, animated: true)
     }
     
     func configureContentView() {
@@ -128,42 +145,29 @@ class ViewController: UIViewController {
             make.top.equalTo(calculationMenu).inset(90)
             make.bottom.equalTo(calculationMenu).inset(120)
         }
-        
-        //        Проверить визуально границы ContentView
-        //        self.contentView.backgroundColor = .black
-        
     }
     
-    func configureShippedFromLabel() {
-        self.shippedFromLabel.snp.makeConstraints { make in
-            make.leading.trailing.equalTo(contentView)
-            make.top.equalTo(contentView)
+    func configureShippedFromView() {
+        self.shippedFromView.snp.makeConstraints { make in
+            make.top.leading.trailing.equalTo(contentView)
         }
-        self.shippedFromLabel.text = "Город отправки"
-    }
-    
-    func configurePickButton() {
-        
-        self.calculateButton.snp.makeConstraints { make in
-            make.leading.trailing.equalTo(calculationMenu).inset(16)
-            make.bottom.equalTo(calculationMenu).inset(32)
-            make.height.equalTo(66)
-        }
-        
-        self.calculateButton.setTitle("Рассчитать", for: .normal)
-        self.calculateButton.setTitleColor(.white, for: .normal)
-        self.calculateButton.titleLabel?.font = .systemFont(ofSize: 18, weight: .bold)
-        self.calculateButton.backgroundColor = UIColor(named: "ButtonColor")
-        self.calculateButton.layer.cornerRadius = 32
     }
     
     func configureShippedToView() {
         self.shippedToView.snp.makeConstraints { make in
-            make.top.equalTo(shippedFromView.snp.bottom).offset(20)
+            make.top.equalTo(shippedFromView.snp.bottom).offset(24)
+            make.leading.trailing.equalToSuperview()
+        }
+    }
+    
+    func configurePackageSizeView() {
+        self.packageSizeView.snp.makeConstraints { make in
+            make.top.equalTo(shippedToView.snp.bottom).offset(24)
+            make.leading.trailing.equalToSuperview()
         }
     }
 }
     
-    #Preview {
-        ViewController()
-    }
+#Preview {
+    ViewController()
+}
