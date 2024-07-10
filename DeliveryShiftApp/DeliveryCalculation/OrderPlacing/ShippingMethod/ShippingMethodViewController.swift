@@ -8,11 +8,12 @@
 import UIKit
 import SnapKit
 
-class ShippingMethodViewController: UIViewController, HeaderViewDelegate {
+class ShippingMethodViewController: UIViewController, DeliveryTypeViewDelegate {
+    
+    var iconImage: String = "cross.pdf"
     
     var headerView: HeaderView = {
         let headerView = HeaderView()
-        headerView.setIcon(icon: UIImage(named: "cross.pdf"))
         headerView.setTitle("Способ отправки")
         return headerView
     }()
@@ -37,13 +38,13 @@ class ShippingMethodViewController: UIViewController, HeaderViewDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        configureNavigationBar()
+        
         view.backgroundColor = .white
         
-        headerView.delegate = self
-        print("делегат поставлен")
-        
-        self.view.addSubview(headerView)
-        configureHeaderView()
+        expressDeliveryView.delegate = self
+        usualDeliveryView.delegate = self
         
         self.view.addSubview(expressDeliveryView)
         configureExpressDeliveryView()
@@ -52,22 +53,10 @@ class ShippingMethodViewController: UIViewController, HeaderViewDelegate {
         configureUsualDeliveryView()
     }
     
-    func didTapIcon() {
-        print("тапнуто")
-        self.dismiss(animated: true)
-    }
-    
-    func configureHeaderView() {
-        self.headerView.snp.makeConstraints { make in
-            make.leading.trailing.equalToSuperview()
-            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(24)
-        }
-    }
-    
     func configureExpressDeliveryView() {
         self.expressDeliveryView.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview().inset(16)
-            make.top.equalTo(headerView.snp.bottom).offset(36)
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top).offset(36)
         }
     }
     
@@ -76,5 +65,39 @@ class ShippingMethodViewController: UIViewController, HeaderViewDelegate {
             make.leading.trailing.equalToSuperview().inset(16)
             make.top.equalTo(expressDeliveryView.snp.bottom).offset(24)
         }
+    }
+    
+    func didTapButton(in view: DeliveryTypeView) {
+        let receiverViewController = ReceiverViewController()
+        navigationController?.pushViewController(receiverViewController, animated: true)
+    }
+    
+    func configureNavigationBar() {
+        let appearance = UINavigationBarAppearance()
+        appearance.configureWithOpaqueBackground()
+        appearance.backgroundColor = .white
+        appearance.shadowColor = .clear
+        appearance.titleTextAttributes = [
+            .font: UIFont.systemFont(ofSize: 24, weight: .bold)
+        ]
+        
+        let leftBarButtonItem = UIBarButtonItem(
+            image: UIImage(named: iconImage),
+            style: .plain,
+            target: self,
+            action: #selector(leftBarButtonTapped)
+        )
+        leftBarButtonItem.tintColor = UIColor(named: "IndicatorLightColor")
+        navigationItem.leftBarButtonItem = leftBarButtonItem
+            
+        navigationController?.navigationBar.standardAppearance = appearance
+        navigationController?.navigationBar.scrollEdgeAppearance = appearance
+        navigationController?.navigationBar.compactAppearance = appearance
+        
+        navigationItem.titleView = headerView
+    }
+    
+    @objc func leftBarButtonTapped() {
+        self.dismiss(animated: true)
     }
 }

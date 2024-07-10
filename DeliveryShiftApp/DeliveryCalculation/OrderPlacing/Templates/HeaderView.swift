@@ -8,19 +8,7 @@
 import UIKit
 import SnapKit
 
-protocol HeaderViewDelegate: AnyObject {
-    func didTapIcon()
-}
-
 class HeaderView: UIView {
-    
-    weak var delegate: HeaderViewDelegate?
-    
-    private var icon: UIImageView = {
-        let icon = UIImageView()
-        icon.isUserInteractionEnabled = true
-        return icon
-    }()
     
     private var titleLabel: UILabel = {
         let label = UILabel()
@@ -42,34 +30,14 @@ class HeaderView: UIView {
     
     private func configureHeaderView() {
         
-        self.addSubview(icon)
-        icon.snp.makeConstraints { make in
-            make.leading.equalToSuperview().inset(16)
-            make.centerY.equalToSuperview()
-        }
-        
         self.addSubview(titleLabel)
         titleLabel.snp.makeConstraints { make in
-            make.leading.equalTo(icon.snp.trailing).offset(32)
-            make.centerY.equalToSuperview()
+            make.top.bottom.equalToSuperview()
+            make.leading.trailing.equalToSuperview()
         }
-        
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(iconTapped))
-        icon.addGestureRecognizer(tapGesture)
-        print("добавлен рекогнайзер")
-    }
-    
-    @objc private func iconTapped() {
-        print("тапнуто")
-        delegate?.didTapIcon()
     }
     
     func setTitle(_ title: String) {
         titleLabel.text = title
     }
-    
-    func setIcon(icon: UIImage?) {
-        self.icon.image = icon
-    }
-
 }

@@ -8,7 +8,13 @@
 import UIKit
 import SnapKit
 
+protocol ButtonViewDelegate: AnyObject {
+    func didTapButton(in view: ButtonView)
+}
+
 class ButtonView: UIView {
+    
+    weak var delegate: ButtonViewDelegate?
     
     private var button: UIButton = {
         let button = UIButton()
@@ -33,12 +39,18 @@ class ButtonView: UIView {
         
         self.addSubview(button)
         button.snp.makeConstraints { make in
-            make.leading.trailing.equalToSuperview().inset(16)
+            make.edges.equalToSuperview()
             make.height.equalTo(60)
         }
+        
+        button.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
     }
     
     func setButtonTitle(_ title: String) {
         button.setTitle(title, for: .normal)
+    }
+    
+    @objc private func buttonTapped() {
+        delegate?.didTapButton(in: self)
     }
 }

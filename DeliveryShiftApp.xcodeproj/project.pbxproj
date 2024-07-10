@@ -20,6 +20,11 @@
 		FC7B9F3B2C3B1FFF00819F84 /* DeliveryTypeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC7B9F3A2C3B1FFF00819F84 /* DeliveryTypeView.swift */; };
 		FCB0B7712C3BD3A4005763AF /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCB0B7702C3BD3A4005763AF /* HeaderView.swift */; };
 		FCB0B7732C3BDE61005763AF /* ButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCB0B7722C3BDE61005763AF /* ButtonView.swift */; };
+		FCB0B7752C3C750C005763AF /* TextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCB0B7742C3C750C005763AF /* TextFieldView.swift */; };
+		FCB0B7772C3C792F005763AF /* ReceiverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCB0B7762C3C792F005763AF /* ReceiverViewController.swift */; };
+		FCB0B77A2C3D5E0F005763AF /* SenderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCB0B7792C3D5E0F005763AF /* SenderViewController.swift */; };
+		FCB0B77C2C3D762F005763AF /* WhereToPickUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCB0B77B2C3D762F005763AF /* WhereToPickUpViewController.swift */; };
+		FCB0B77E2C3D78DE005763AF /* WhereToDeliverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCB0B77D2C3D78DE005763AF /* WhereToDeliverViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,6 +42,11 @@
 		FC7B9F3A2C3B1FFF00819F84 /* DeliveryTypeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeliveryTypeView.swift; sourceTree = "<group>"; };
 		FCB0B7702C3BD3A4005763AF /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		FCB0B7722C3BDE61005763AF /* ButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonView.swift; sourceTree = "<group>"; };
+		FCB0B7742C3C750C005763AF /* TextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldView.swift; sourceTree = "<group>"; };
+		FCB0B7762C3C792F005763AF /* ReceiverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiverViewController.swift; sourceTree = "<group>"; };
+		FCB0B7792C3D5E0F005763AF /* SenderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SenderViewController.swift; sourceTree = "<group>"; };
+		FCB0B77B2C3D762F005763AF /* WhereToPickUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhereToPickUpViewController.swift; sourceTree = "<group>"; };
+		FCB0B77D2C3D78DE005763AF /* WhereToDeliverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhereToDeliverViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -146,6 +156,7 @@
 			children = (
 				FC7B9F392C3B1FE900819F84 /* Templates */,
 				FC7B9F332C3AA84600819F84 /* ShippingMethod */,
+				FCB0B7782C3D5DEA005763AF /* Forms */,
 			);
 			path = OrderPlacing;
 			sourceTree = "<group>";
@@ -155,8 +166,20 @@
 			children = (
 				FCB0B7702C3BD3A4005763AF /* HeaderView.swift */,
 				FC7B9F3A2C3B1FFF00819F84 /* DeliveryTypeView.swift */,
+				FCB0B7742C3C750C005763AF /* TextFieldView.swift */,
 			);
 			path = Templates;
+			sourceTree = "<group>";
+		};
+		FCB0B7782C3D5DEA005763AF /* Forms */ = {
+			isa = PBXGroup;
+			children = (
+				FCB0B7762C3C792F005763AF /* ReceiverViewController.swift */,
+				FCB0B7792C3D5E0F005763AF /* SenderViewController.swift */,
+				FCB0B77B2C3D762F005763AF /* WhereToPickUpViewController.swift */,
+				FCB0B77D2C3D78DE005763AF /* WhereToDeliverViewController.swift */,
+			);
+			path = Forms;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -237,13 +260,18 @@
 			files = (
 				FC7B9F312C39B34600819F84 /* ViewController.swift in Sources */,
 				FCB0B7712C3BD3A4005763AF /* HeaderView.swift in Sources */,
+				FCB0B77A2C3D5E0F005763AF /* SenderViewController.swift in Sources */,
 				FCB0B7732C3BDE61005763AF /* ButtonView.swift in Sources */,
+				FCB0B7752C3C750C005763AF /* TextFieldView.swift in Sources */,
 				FC7B9F2D2C39B32100819F84 /* SecondViewController.swift in Sources */,
 				FC7B9F352C3B1BEC00819F84 /* ShippingMethodViewController.swift in Sources */,
 				FC7B9F2F2C39B33800819F84 /* ThirdViewController.swift in Sources */,
+				FCB0B7772C3C792F005763AF /* ReceiverViewController.swift in Sources */,
+				FCB0B77C2C3D762F005763AF /* WhereToPickUpViewController.swift in Sources */,
 				FC7B9F2B2C39B2FD00819F84 /* PickButtonView.swift in Sources */,
 				FC6D62BC2C342E4400A47C18 /* AppDelegate.swift in Sources */,
 				FC6D62BE2C342E4400A47C18 /* SceneDelegate.swift in Sources */,
+				FCB0B77E2C3D78DE005763AF /* WhereToDeliverViewController.swift in Sources */,
 				FC7B9F3B2C3B1FFF00819F84 /* DeliveryTypeView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

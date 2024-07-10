@@ -54,12 +54,9 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         view.insertSubview(backgroundView, at: 0)
-        NSLayoutConstraint.activate([
-            backgroundView.topAnchor.constraint(equalTo: view.topAnchor),
-            backgroundView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            backgroundView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            backgroundView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-        ])
+        backgroundView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
         
         if let tabBar = self.tabBarController?.tabBar {
             tabBar.barTintColor = .white
@@ -135,8 +132,9 @@ class ViewController: UIViewController {
     
     @objc func showShippingMethodScreen() {
         let shippingMethodViewController = ShippingMethodViewController()
-        shippingMethodViewController.modalPresentationStyle = .fullScreen
-        present(shippingMethodViewController, animated: true)
+        let navController = UINavigationController(rootViewController: shippingMethodViewController)
+        navController.modalPresentationStyle = .fullScreen
+        present(navController, animated: true)
     }
     
     func configureContentView() {

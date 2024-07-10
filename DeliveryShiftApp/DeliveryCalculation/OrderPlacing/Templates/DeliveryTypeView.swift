@@ -8,7 +8,13 @@
 import UIKit
 import SnapKit
 
+protocol DeliveryTypeViewDelegate: AnyObject {
+    func didTapButton(in view: DeliveryTypeView)
+}
+
 class DeliveryTypeView: UIView {
+    
+    weak var delegate: DeliveryTypeViewDelegate?
     
     private var button: UIButton = {
         let button = UIButton()
@@ -115,8 +121,9 @@ class DeliveryTypeView: UIView {
     func setDeliveryTime(_ title: String) {
         deliveryTimeLabel.text = title
     }
+
     
     @objc private func buttonTapped() {
-        // Переход на следующий экран
+        delegate?.didTapButton(in: self)
     }
 }
