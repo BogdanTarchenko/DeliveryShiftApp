@@ -8,7 +8,9 @@
 import SnapKit
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, PickButtonViewDelegate {
+    
+    private let networkManager = NetworkManager()
     
     var backgroundView: UIImageView = {
         let backgroundView = UIImageView(frame: .zero)
@@ -52,6 +54,10 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        shippedFromView.delegate = self
+        shippedToView.delegate = self
+        packageSizeView.delegate = self
         
         view.insertSubview(backgroundView, at: 0)
         backgroundView.snp.makeConstraints { make in
@@ -163,6 +169,21 @@ class ViewController: UIViewController {
             make.top.equalTo(shippedToView.snp.bottom).offset(24)
             make.leading.trailing.equalToSuperview()
         }
+    }
+    
+    func didTapButton(in view: PickButtonView) {
+        networkManager.fetch(api: .points, resultType: DeliveryPointsResponse.self) { result in
+            switch result {
+            case .success(let points):
+                print(points.points)
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
+        let shippedFromTableViewController = ShippedFromTableViewController()
+        let navController = UINavigationController(rootViewController: shippedFromTableViewController)
+        navController.modalPresentationStyle = .fullScreen
+        present(navController, animated: true)
     }
 }
     

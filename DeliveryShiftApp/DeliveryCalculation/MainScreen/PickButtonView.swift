@@ -8,7 +8,13 @@
 import UIKit
 import SnapKit
 
+protocol PickButtonViewDelegate: AnyObject {
+    func didTapButton(in view: PickButtonView)
+}
+
 class PickButtonView: UIView {
+    
+    weak var delegate: PickButtonViewDelegate?
     
     private let titleLabel: UILabel = {
         let label = UILabel()
@@ -131,7 +137,7 @@ class PickButtonView: UIView {
     }
     
     @objc private func buttonTapped() {
-        // Открывается вьюшка с динамической таблицей
+        delegate?.didTapButton(in: self)
     }
     
     @objc private func wordTapped(_ sender: UITapGestureRecognizer) {

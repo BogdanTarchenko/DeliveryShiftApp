@@ -25,6 +25,9 @@
 		FCB0B77A2C3D5E0F005763AF /* SenderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCB0B7792C3D5E0F005763AF /* SenderViewController.swift */; };
 		FCB0B77C2C3D762F005763AF /* WhereToPickUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCB0B77B2C3D762F005763AF /* WhereToPickUpViewController.swift */; };
 		FCB0B77E2C3D78DE005763AF /* WhereToDeliverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCB0B77D2C3D78DE005763AF /* WhereToDeliverViewController.swift */; };
+		FCB0B7802C3E6C15005763AF /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCB0B77F2C3E6C15005763AF /* NetworkManager.swift */; };
+		FCB0B7842C3E6DA0005763AF /* DeliveryPointsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCB0B7832C3E6DA0005763AF /* DeliveryPointsResponse.swift */; };
+		FCB0B7872C3E6FBB005763AF /* ShippedFromTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCB0B7862C3E6FBB005763AF /* ShippedFromTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -47,6 +50,9 @@
 		FCB0B7792C3D5E0F005763AF /* SenderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SenderViewController.swift; sourceTree = "<group>"; };
 		FCB0B77B2C3D762F005763AF /* WhereToPickUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhereToPickUpViewController.swift; sourceTree = "<group>"; };
 		FCB0B77D2C3D78DE005763AF /* WhereToDeliverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhereToDeliverViewController.swift; sourceTree = "<group>"; };
+		FCB0B77F2C3E6C15005763AF /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		FCB0B7832C3E6DA0005763AF /* DeliveryPointsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeliveryPointsResponse.swift; sourceTree = "<group>"; };
+		FCB0B7862C3E6FBB005763AF /* ShippedFromTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShippedFromTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,8 +86,9 @@
 		FC6D62BA2C342E4400A47C18 /* DeliveryShiftApp */ = {
 			isa = PBXGroup;
 			children = (
+				FCB0B7812C3E6D6F005763AF /* Models */,
 				FC7B9F292C39B2E800819F84 /* DeliveryCalculation */,
-				FCB0B7722C3BDE61005763AF /* ButtonView.swift */,
+				FCB0B77F2C3E6C15005763AF /* NetworkManager.swift */,
 				FC6D62CF2C347F6500A47C18 /* Application */,
 				FC6D62D62C35299800A47C18 /* History */,
 				FC6D62D72C3529B600A47C18 /* Profile */,
@@ -128,6 +135,8 @@
 		FC7B9F292C39B2E800819F84 /* DeliveryCalculation */ = {
 			isa = PBXGroup;
 			children = (
+				FCB0B7852C3E6F79005763AF /* Tables */,
+				FC7B9F392C3B1FE900819F84 /* Templates */,
 				FC7B9F382C3B1ED800819F84 /* OrderPlacing */,
 				FC7B9F322C3AA83600819F84 /* MainScreen */,
 			);
@@ -154,7 +163,6 @@
 		FC7B9F382C3B1ED800819F84 /* OrderPlacing */ = {
 			isa = PBXGroup;
 			children = (
-				FC7B9F392C3B1FE900819F84 /* Templates */,
 				FC7B9F332C3AA84600819F84 /* ShippingMethod */,
 				FCB0B7782C3D5DEA005763AF /* Forms */,
 			);
@@ -164,6 +172,7 @@
 		FC7B9F392C3B1FE900819F84 /* Templates */ = {
 			isa = PBXGroup;
 			children = (
+				FCB0B7722C3BDE61005763AF /* ButtonView.swift */,
 				FCB0B7702C3BD3A4005763AF /* HeaderView.swift */,
 				FC7B9F3A2C3B1FFF00819F84 /* DeliveryTypeView.swift */,
 				FCB0B7742C3C750C005763AF /* TextFieldView.swift */,
@@ -180,6 +189,30 @@
 				FCB0B77D2C3D78DE005763AF /* WhereToDeliverViewController.swift */,
 			);
 			path = Forms;
+			sourceTree = "<group>";
+		};
+		FCB0B7812C3E6D6F005763AF /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				FCB0B7822C3E6D7B005763AF /* Delivery */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		FCB0B7822C3E6D7B005763AF /* Delivery */ = {
+			isa = PBXGroup;
+			children = (
+				FCB0B7832C3E6DA0005763AF /* DeliveryPointsResponse.swift */,
+			);
+			path = Delivery;
+			sourceTree = "<group>";
+		};
+		FCB0B7852C3E6F79005763AF /* Tables */ = {
+			isa = PBXGroup;
+			children = (
+				FCB0B7862C3E6FBB005763AF /* ShippedFromTableViewController.swift */,
+			);
+			path = Tables;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -262,12 +295,15 @@
 				FCB0B7712C3BD3A4005763AF /* HeaderView.swift in Sources */,
 				FCB0B77A2C3D5E0F005763AF /* SenderViewController.swift in Sources */,
 				FCB0B7732C3BDE61005763AF /* ButtonView.swift in Sources */,
+				FCB0B7802C3E6C15005763AF /* NetworkManager.swift in Sources */,
+				FCB0B7872C3E6FBB005763AF /* ShippedFromTableViewController.swift in Sources */,
 				FCB0B7752C3C750C005763AF /* TextFieldView.swift in Sources */,
 				FC7B9F2D2C39B32100819F84 /* SecondViewController.swift in Sources */,
 				FC7B9F352C3B1BEC00819F84 /* ShippingMethodViewController.swift in Sources */,
 				FC7B9F2F2C39B33800819F84 /* ThirdViewController.swift in Sources */,
 				FCB0B7772C3C792F005763AF /* ReceiverViewController.swift in Sources */,
 				FCB0B77C2C3D762F005763AF /* WhereToPickUpViewController.swift in Sources */,
+				FCB0B7842C3E6DA0005763AF /* DeliveryPointsResponse.swift in Sources */,
 				FC7B9F2B2C39B2FD00819F84 /* PickButtonView.swift in Sources */,
 				FC6D62BC2C342E4400A47C18 /* AppDelegate.swift in Sources */,
 				FC6D62BE2C342E4400A47C18 /* SceneDelegate.swift in Sources */,
