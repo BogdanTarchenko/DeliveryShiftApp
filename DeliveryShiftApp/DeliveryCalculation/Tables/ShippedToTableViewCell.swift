@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class ShippedFromTableViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource {
+class ShippedToTableViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource {
     
     private var networkManager = NetworkManager()
     private var points: [Point] = []
@@ -17,7 +17,7 @@ class ShippedFromTableViewController: BaseViewController, UITableViewDelegate, U
     init() {
         let headerView: HeaderView = {
             let headerView = HeaderView()
-            headerView.setTitle("Откуда")
+            headerView.setTitle("Куда")
             return headerView
         }()
         
@@ -35,7 +35,6 @@ class ShippedFromTableViewController: BaseViewController, UITableViewDelegate, U
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(PointTableViewCell.self, forCellReuseIdentifier: "PointCell")
-        
         view.addSubview(tableView)
         
         fetchCities()

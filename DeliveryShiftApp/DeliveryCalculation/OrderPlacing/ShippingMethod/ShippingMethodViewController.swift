@@ -8,15 +8,21 @@
 import UIKit
 import SnapKit
 
-class ShippingMethodViewController: UIViewController, DeliveryTypeViewDelegate {
+class ShippingMethodViewController: BaseViewController, DeliveryTypeViewDelegate {
     
-    var iconImage: String = "cross.pdf"
+    init() {
+        let headerView: HeaderView = {
+            let headerView = HeaderView()
+            headerView.setTitle("Способ отправки")
+            return headerView
+        }()
+        
+        super.init(iconImage: "cross.pdf", headerView: headerView)
+    }
     
-    var headerView: HeaderView = {
-        let headerView = HeaderView()
-        headerView.setTitle("Способ отправки")
-        return headerView
-    }()
+    required init?(coder aDecoder: NSCoder) {
+        return nil
+    }
     
     var expressDeliveryView: DeliveryTypeView = {
         let expressDeliveryView = DeliveryTypeView()
@@ -38,8 +44,6 @@ class ShippingMethodViewController: UIViewController, DeliveryTypeViewDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        configureNavigationBar()
         
         view.backgroundColor = .white
         
@@ -72,32 +76,7 @@ class ShippingMethodViewController: UIViewController, DeliveryTypeViewDelegate {
         navigationController?.pushViewController(receiverViewController, animated: true)
     }
     
-    func configureNavigationBar() {
-        let appearance = UINavigationBarAppearance()
-        appearance.configureWithOpaqueBackground()
-        appearance.backgroundColor = .white
-        appearance.shadowColor = .clear
-        appearance.titleTextAttributes = [
-            .font: UIFont.systemFont(ofSize: 24, weight: .bold)
-        ]
-        
-        let leftBarButtonItem = UIBarButtonItem(
-            image: UIImage(named: iconImage),
-            style: .plain,
-            target: self,
-            action: #selector(leftBarButtonTapped)
-        )
-        leftBarButtonItem.tintColor = UIColor(named: "IndicatorLightColor")
-        navigationItem.leftBarButtonItem = leftBarButtonItem
-            
-        navigationController?.navigationBar.standardAppearance = appearance
-        navigationController?.navigationBar.scrollEdgeAppearance = appearance
-        navigationController?.navigationBar.compactAppearance = appearance
-        
-        navigationItem.titleView = headerView
-    }
-    
-    @objc func leftBarButtonTapped() {
+    override func leftBarButtonTapped() {
         self.dismiss(animated: true)
     }
 }

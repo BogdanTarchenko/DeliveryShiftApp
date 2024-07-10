@@ -8,15 +8,21 @@
 import UIKit
 import SnapKit
 
-class WhereToPickUpViewController: UIViewController, ButtonViewDelegate {
+class WhereToPickUpViewController: BaseViewController, ButtonViewDelegate {
     
-    let iconImage: String = "arrow-left.pdf"
+    init() {
+        let headerView: HeaderView = {
+            let headerView = HeaderView()
+            headerView.setTitle("Откуда забрать")
+            return headerView
+        }()
+        
+        super.init(iconImage: "arrow-left.pdf", headerView: headerView)
+    }
     
-    var headerView: HeaderView = {
-        let headerView = HeaderView()
-        headerView.setTitle("Откуда забрать")
-        return headerView
-    }()
+    required init?(coder aDecoder: NSCoder) {
+        return nil
+    }
     
     var streetView: TextFieldView = {
         let streetView = TextFieldView()
@@ -50,9 +56,8 @@ class WhereToPickUpViewController: UIViewController, ButtonViewDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
         
-        configureNavigationBar()
+        view.backgroundColor = .white
         
         buttonView.delegate = self
         
@@ -112,32 +117,7 @@ class WhereToPickUpViewController: UIViewController, ButtonViewDelegate {
         navigationController?.pushViewController(whereToDeliverViewController, animated: true)
     }
     
-    func configureNavigationBar() {
-        let appearance = UINavigationBarAppearance()
-        appearance.configureWithOpaqueBackground()
-        appearance.backgroundColor = .white
-        appearance.shadowColor = .clear
-        appearance.titleTextAttributes = [
-            .font: UIFont.systemFont(ofSize: 24, weight: .bold)
-        ]
-        
-        let leftBarButtonItem = UIBarButtonItem(
-            image: UIImage(named: iconImage),
-            style: .plain,
-            target: self,
-            action: #selector(leftBarButtonTapped)
-        )
-        leftBarButtonItem.tintColor = UIColor(named: "IndicatorLightColor")
-        navigationItem.leftBarButtonItem = leftBarButtonItem
-            
-        navigationController?.navigationBar.standardAppearance = appearance
-        navigationController?.navigationBar.scrollEdgeAppearance = appearance
-        navigationController?.navigationBar.compactAppearance = appearance
-        
-        navigationItem.titleView = headerView
-    }
-    
-    @objc func leftBarButtonTapped() {
+    override func leftBarButtonTapped() {
         navigationController?.popViewController(animated: true)
     }
 }

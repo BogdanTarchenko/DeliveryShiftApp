@@ -10,8 +10,6 @@ import UIKit
 
 class ViewController: UIViewController, PickButtonViewDelegate {
     
-    private let networkManager = NetworkManager()
-    
     var backgroundView: UIImageView = {
         let backgroundView = UIImageView(frame: .zero)
         backgroundView.image = UIImage(named: "delivery-calculation-background.pdf")
@@ -172,14 +170,8 @@ class ViewController: UIViewController, PickButtonViewDelegate {
     }
     
     func didTapButton(in view: PickButtonView) {
-        networkManager.fetch(api: .points, resultType: DeliveryPointsResponse.self) { result in
-            switch result {
-            case .success(let points):
-                print(points.points)
-            case .failure(let error):
-                print(error.localizedDescription)
-            }
-        }
+        
+        // Тут чтобы при тыке на разные вьюшки открывались разные экраны
         let shippedFromTableViewController = ShippedFromTableViewController()
         let navController = UINavigationController(rootViewController: shippedFromTableViewController)
         navController.modalPresentationStyle = .fullScreen

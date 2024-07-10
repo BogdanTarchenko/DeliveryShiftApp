@@ -28,6 +28,9 @@
 		FCB0B7802C3E6C15005763AF /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCB0B77F2C3E6C15005763AF /* NetworkManager.swift */; };
 		FCB0B7842C3E6DA0005763AF /* DeliveryPointsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCB0B7832C3E6DA0005763AF /* DeliveryPointsResponse.swift */; };
 		FCB0B7872C3E6FBB005763AF /* ShippedFromTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCB0B7862C3E6FBB005763AF /* ShippedFromTableViewController.swift */; };
+		FCB0B7892C3E9802005763AF /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCB0B7882C3E9802005763AF /* BaseViewController.swift */; };
+		FCB0B78B2C3EA123005763AF /* PointTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCB0B78A2C3EA123005763AF /* PointTableViewCell.swift */; };
+		FCB0B78F2C3EAB01005763AF /* ShippedToTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCB0B78E2C3EAB01005763AF /* ShippedToTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -53,6 +56,9 @@
 		FCB0B77F2C3E6C15005763AF /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		FCB0B7832C3E6DA0005763AF /* DeliveryPointsResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeliveryPointsResponse.swift; sourceTree = "<group>"; };
 		FCB0B7862C3E6FBB005763AF /* ShippedFromTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShippedFromTableViewController.swift; sourceTree = "<group>"; };
+		FCB0B7882C3E9802005763AF /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
+		FCB0B78A2C3EA123005763AF /* PointTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointTableViewCell.swift; sourceTree = "<group>"; };
+		FCB0B78E2C3EAB01005763AF /* ShippedToTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShippedToTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -176,6 +182,7 @@
 				FCB0B7702C3BD3A4005763AF /* HeaderView.swift */,
 				FC7B9F3A2C3B1FFF00819F84 /* DeliveryTypeView.swift */,
 				FCB0B7742C3C750C005763AF /* TextFieldView.swift */,
+				FCB0B7882C3E9802005763AF /* BaseViewController.swift */,
 			);
 			path = Templates;
 			sourceTree = "<group>";
@@ -211,6 +218,8 @@
 			isa = PBXGroup;
 			children = (
 				FCB0B7862C3E6FBB005763AF /* ShippedFromTableViewController.swift */,
+				FCB0B78E2C3EAB01005763AF /* ShippedToTableViewCell.swift */,
+				FCB0B78A2C3EA123005763AF /* PointTableViewCell.swift */,
 			);
 			path = Tables;
 			sourceTree = "<group>";
@@ -292,12 +301,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				FC7B9F312C39B34600819F84 /* ViewController.swift in Sources */,
+				FCB0B78F2C3EAB01005763AF /* ShippedToTableViewCell.swift in Sources */,
 				FCB0B7712C3BD3A4005763AF /* HeaderView.swift in Sources */,
 				FCB0B77A2C3D5E0F005763AF /* SenderViewController.swift in Sources */,
 				FCB0B7732C3BDE61005763AF /* ButtonView.swift in Sources */,
+				FCB0B7892C3E9802005763AF /* BaseViewController.swift in Sources */,
 				FCB0B7802C3E6C15005763AF /* NetworkManager.swift in Sources */,
 				FCB0B7872C3E6FBB005763AF /* ShippedFromTableViewController.swift in Sources */,
 				FCB0B7752C3C750C005763AF /* TextFieldView.swift in Sources */,
+				FCB0B78B2C3EA123005763AF /* PointTableViewCell.swift in Sources */,
 				FC7B9F2D2C39B32100819F84 /* SecondViewController.swift in Sources */,
 				FC7B9F352C3B1BEC00819F84 /* ShippingMethodViewController.swift in Sources */,
 				FC7B9F2F2C39B33800819F84 /* ThirdViewController.swift in Sources */,
