@@ -1,20 +1,20 @@
-//
-//  DeliveryTypeView.swift
-//  DeliveryShiftApp
-//
-//  Created by Богдан Тарченко on 08.07.2024.
-//
-
 import UIKit
 import SnapKit
 
+enum DeliveryType {
+    case express
+    case usual
+}
+
 protocol DeliveryTypeViewDelegate: AnyObject {
-    func didTapButton(in view: DeliveryTypeView)
+    func didTapButton(type: DeliveryType)
 }
 
 class DeliveryTypeView: UIView {
     
     weak var delegate: DeliveryTypeViewDelegate?
+    
+    private let deliveryType: DeliveryType
     
     private var button: UIButton = {
         let button = UIButton()
@@ -55,14 +55,14 @@ class DeliveryTypeView: UIView {
         return label
     }()
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    init(deliveryType: DeliveryType) {
+        self.deliveryType = deliveryType
+        super.init(frame: .zero)
         configureDeliveryTypeView()
     }
-        
+    
     required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        configureDeliveryTypeView()
+        fatalError("init(coder:) has not been implemented")
     }
     
     private func configureDeliveryTypeView() {
@@ -121,9 +121,9 @@ class DeliveryTypeView: UIView {
     func setDeliveryTime(_ title: String) {
         deliveryTimeLabel.text = title
     }
-
+    
     
     @objc private func buttonTapped() {
-        delegate?.didTapButton(in: self)
+        delegate?.didTapButton(type: deliveryType)
     }
 }

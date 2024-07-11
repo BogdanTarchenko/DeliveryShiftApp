@@ -1,20 +1,22 @@
-//
-//  PickButtonView.swift
-//  DeliveryShiftApp
-//
-//  Created by Богдан Тарченко on 06.07.2024.
-//
-
 import UIKit
 import SnapKit
 
+enum ButtonType {
+    case shippedFromCity
+    case shippedToCity
+    case packageSize
+}
+
 protocol PickButtonViewDelegate: AnyObject {
-    func didTapButton(in view: PickButtonView)
+    func didTapButton(type: ButtonType)
+    func didSelectPoint(type: ButtonType, point: String)
 }
 
 class PickButtonView: UIView {
     
     weak var delegate: PickButtonViewDelegate?
+    
+    private let buttonType: ButtonType
     
     private let titleLabel: UILabel = {
         let label = UILabel()
@@ -55,16 +57,18 @@ class PickButtonView: UIView {
         return stackView
     }()
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    private var selectedPoint: String?
+    
+    init(buttonType: ButtonType) {
+        self.buttonType = buttonType
+        super.init(frame: .zero)
         configurePickButtonView()
     }
-        
+    
     required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        configurePickButtonView()
+        fatalError("init(coder:) has not been implemented")
     }
-
+    
     private func configurePickButtonView() {
         
         self.addSubview(titleLabel)
@@ -137,10 +141,13 @@ class PickButtonView: UIView {
     }
     
     @objc private func buttonTapped() {
-        delegate?.didTapButton(in: self)
+        delegate?.didTapButton(type: buttonType)
     }
     
     @objc private func wordTapped(_ sender: UITapGestureRecognizer) {
-        // Выбирается город
+        if let label = sender.view as? UILabel, let text = label.text {
+            selectedPoint = text
+            delegate?.didSelectPoint(type: buttonType, point: text)
+        }
     }
 }

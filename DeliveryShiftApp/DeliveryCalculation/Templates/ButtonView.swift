@@ -1,10 +1,3 @@
-//
-//  HeaderView.swift
-//  DeliveryShiftApp
-//
-//  Created by Богдан Тарченко on 08.07.2024.
-//
-
 import UIKit
 import SnapKit
 
@@ -29,7 +22,7 @@ class ButtonView: UIView {
         super.init(frame: frame)
         configureButtonView()
     }
-        
+    
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         configureButtonView()

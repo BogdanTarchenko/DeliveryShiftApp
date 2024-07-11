@@ -1,10 +1,3 @@
-//
-//  HeaderView.swift
-//  DeliveryShiftApp
-//
-//  Created by Богдан Тарченко on 08.07.2024.
-//
-
 import UIKit
 import SnapKit
 
@@ -22,7 +15,7 @@ class HeaderView: UIView {
         super.init(frame: frame)
         configureHeaderView()
     }
-        
+    
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         configureHeaderView()

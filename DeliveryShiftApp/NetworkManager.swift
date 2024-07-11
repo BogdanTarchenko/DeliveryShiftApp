@@ -1,10 +1,3 @@
-//
-//  NetworkManager.swift
-//  DeliveryShiftApp
-//
-//  Created by Богдан Тарченко on 10.07.2024.
-//
-
 import Foundation
 
 enum CustomError: Error {
@@ -20,7 +13,7 @@ enum Api {
         case get
         case post(request: Encodable)
         case put(request: Encodable)
-
+        
         var rawValue: String {
             switch self {
             case .get:        return "GET"
@@ -29,13 +22,15 @@ enum Api {
             }
         }
     }
-
+    
     case points
+    case types
+    case calc(request: Encodable)
     case otp(request: Encodable)
     case auth(request: Encodable)
     case catalog
     case cancel(request: Encodable)
-
+    
     var endpoint: String {
         switch self {
         case .otp:        return "auth/otp"
@@ -43,9 +38,11 @@ enum Api {
         case .catalog:    return "pizza/catalog"
         case .cancel:     return "pizza/orders/cancel"
         case .points:     return "delivery/points"
+        case .types:      return "delivery/package/types"
+        case .calc:       return "delivery/calc"
         }
     }
-
+    
     var method: Method {
         switch self {
         case .otp(let request):                return .post(request: request)
@@ -53,9 +50,11 @@ enum Api {
         case .catalog:                        return .get
         case .cancel(let request):            return .put(request: request)
         case .points:                       return .get
+        case .types:                        return .get
+        case .calc(let request):            return .post(request: request)
         }
     }
-
+    
     var needsAuthorized: Bool {
         switch self {
         case .cancel:    return true
@@ -66,31 +65,31 @@ enum Api {
 
 final class NetworkManager {
     private let baseUrlString = "https://shift-backend.onrender.com/"
-
-
+    
+    
     func fetch<T: Decodable>(api: Api, resultType: T.Type, completion: @escaping (Result<T,CustomError>) -> Void) {
         let urlString = baseUrlString + api.endpoint
-
+        
         guard let url = URL(string: urlString) else {
             completion(.failure(.urlNotValidate))
             return
         }
-
+        
         var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = api.method.rawValue
         modifyRequest(urlRequest: &urlRequest, api: api)
-
+        
         let task = URLSession.shared.dataTask(with: urlRequest) { data, response, error in
             if let _ = error {
                 completion(.failure(.error))
                 return
             }
-
+            
             guard let data else {
                 completion(.failure(.noData))
                 return
             }
-
+            
             do {
                 let response = try JSONDecoder().decode(T.self, from: data)
                 completion(.success(response))
@@ -100,10 +99,10 @@ final class NetworkManager {
         }
         task.resume()
     }
-
+    
     private func modifyRequest(urlRequest: inout URLRequest, api: Api) {
         switch api {
-        case .otp(let request), .auth(let request), .cancel(let request):
+        case .otp(let request), .auth(let request), .cancel(let request), .calc(let request):
             urlRequest.setValue("application/json", forHTTPHeaderField: "Content-Type")
             do {
                 let jsonData = try JSONEncoder().encode(request)
@@ -111,13 +110,13 @@ final class NetworkManager {
             } catch {
                 return
             }
-
+            
             if api.needsAuthorized {
                 let token = UserDefaults.standard.string(forKey: "token")
                 guard let token else { return }
                 urlRequest.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
             }
-        case .catalog, .points:
+        case .catalog, .points, .types:
             break
         }
     }

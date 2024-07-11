@@ -1,22 +1,22 @@
 import UIKit
 import SnapKit
 
-class ShippedFromTableViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource {
+class PackageSizeTableViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource {
     
     private var networkManager = NetworkManager()
-    private var points: [Point] = []
+    private var packageTypes: [Package] = []
     private let tableView = UITableView()
     
-    var onPointSelected: ((Point) -> Void)?
+    var onPackageSelected: ((Package) -> Void)?
     
     init(deliveryInformation: DeliveryInformation) {
         let headerView: HeaderView = {
             let headerView = HeaderView()
-            headerView.setTitle("Откуда")
+            headerView.setTitle("Размер посылки")
             return headerView
         }()
         
-        super.init(iconImage: "cross.pdf", headerView: headerView, deliveryInformation: deliveryInformation)
+        super.init(iconImage: "chevron-down.pdf", headerView: headerView, deliveryInformation: deliveryInformation)
     }
     
     required init?(coder: NSCoder) {
@@ -29,11 +29,10 @@ class ShippedFromTableViewController: BaseViewController, UITableViewDelegate, U
         
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.register(PointTableViewCell.self, forCellReuseIdentifier: "PointCell")
-        
+        tableView.register(PackageTableViewCell.self, forCellReuseIdentifier: "PackageCell")
         view.addSubview(tableView)
         
-        fetchCities()
+        fetchPackages()
         configureTableView()
     }
     
@@ -50,11 +49,11 @@ class ShippedFromTableViewController: BaseViewController, UITableViewDelegate, U
         dismiss(animated: true)
     }
     
-    private func fetchCities() {
-        networkManager.fetch(api: .points, resultType: DeliveryPointsResponse.self) { [weak self] result in
+    private func fetchPackages() {
+        networkManager.fetch(api: .types, resultType: DeliveryPackageTypesResponse.self) { [weak self] result in
             switch result {
             case .success(let response):
-                self?.points = response.points
+                self?.packageTypes = response.packages
                 DispatchQueue.main.async {
                     self?.tableView.reloadData()
                 }
@@ -65,19 +64,19 @@ class ShippedFromTableViewController: BaseViewController, UITableViewDelegate, U
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return points.count
+        return packageTypes.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "PointCell", for: indexPath)
-        let point = points[indexPath.row]
-        cell.textLabel?.text = point.name
+        let cell = tableView.dequeueReusableCell(withIdentifier: "PackageCell", for: indexPath)
+        let package = packageTypes[indexPath.row]
+        cell.textLabel?.text = "\(package.name), \(package.length)х\(package.width)x\(package.height) см"
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let selectedPoint = points[indexPath.row]
-        onPointSelected?(selectedPoint)
+        let selectedPackage = packageTypes[indexPath.row]
+        onPackageSelected?(selectedPackage)
         tableView.deselectRow(at: indexPath, animated: true)
         dismiss(animated: true)
     }

@@ -1,15 +1,8 @@
-//
-//  TextFieldView.swift
-//  DeliveryShiftApp
-//
-//  Created by Богдан Тарченко on 09.07.2024.
-//
-
 import UIKit
 
 class TextFieldView: UIView {
-
-    private var textField: UITextField = {
+    
+    var textField: UITextField = {
         let textField = UITextField()
         textField.textColor = UIColor(named: "TextPrimaryColor")
         textField.font = .systemFont(ofSize: 16)
@@ -23,7 +16,7 @@ class TextFieldView: UIView {
         super.init(frame: frame)
         configureTextFieldView()
     }
-        
+    
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         configureTextFieldView()

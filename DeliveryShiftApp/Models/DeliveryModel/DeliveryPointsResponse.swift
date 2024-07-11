@@ -1,10 +1,3 @@
-//
-//  DeliveryPointsResponse.swift
-//  DeliveryShiftApp
-//
-//  Created by Богдан Тарченко on 10.07.2024.
-//
-
 import Foundation
 
 struct DeliveryPointsResponse: Decodable {

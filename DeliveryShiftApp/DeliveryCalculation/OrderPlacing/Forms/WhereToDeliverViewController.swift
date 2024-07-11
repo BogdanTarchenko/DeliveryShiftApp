@@ -1,27 +1,20 @@
-//
-//  ReceiverViewController.swift
-//  DeliveryShiftApp
-//
-//  Created by Богдан Тарченко on 09.07.2024.
-//
-
 import UIKit
 import SnapKit
 
 class WhereToDeliverViewController: BaseViewController, ButtonViewDelegate {
     
-    init() {
+    init(deliveryInformation: DeliveryInformation) {
         let headerView: HeaderView = {
             let headerView = HeaderView()
             headerView.setTitle("Куда доставить")
             return headerView
         }()
         
-        super.init(iconImage: "arrow-left.pdf", headerView: headerView)
+        super.init(iconImage: "arrow-left.pdf", headerView: headerView, deliveryInformation: deliveryInformation)
     }
     
-    required init?(coder aDecoder: NSCoder) {
-        return nil
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
     }
     
     var streetView: TextFieldView = {
@@ -53,7 +46,7 @@ class WhereToDeliverViewController: BaseViewController, ButtonViewDelegate {
         buttonView.setButtonTitle("Продолжить")
         return buttonView
     }()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -113,8 +106,58 @@ class WhereToDeliverViewController: BaseViewController, ButtonViewDelegate {
     }
     
     func didTapButton(in view: ButtonView) {
-        let senderViewController = SenderViewController()
-        navigationController?.pushViewController(senderViewController, animated: true)
+        if validateInputs() {
+            deliveryInformation.receiver?.house = houseView.textField.text ?? ""
+            deliveryInformation.receiver?.street = streetView.textField.text ?? ""
+            deliveryInformation.receiver?.roomNumber = roomNumberView.textField.text
+            deliveryInformation.receiver?.note = noteView.textField.text ?? ""
+            let whoPayForDeliveryViewController = WhoPayForDeliveryViewController(deliveryInformation: deliveryInformation)
+            navigationController?.pushViewController(whoPayForDeliveryViewController, animated: true)
+        }
+        
+        // Не забыть сделать адекватное отображение неккоректного поля с указанием ошибки + найти компактный способ проверять на использование единого алфавита
+        else {
+            if (!validateStreet()) {
+                streetView.textField.text = ""
+            }
+            if (!validateHouse()) {
+                houseView.textField.text = ""
+            }
+            if (!validateRoomNumber()) {
+                roomNumberView.textField.text = ""
+            }
+            if (!validateNote()) {
+                noteView.textField.text = ""
+            }
+        }
+    }
+    
+    func validateInputs() -> Bool {
+        return validateStreet() && validateHouse() && validateRoomNumber() && validateNote()
+    }
+    
+    func validateStreet() -> Bool {
+        let street = streetView.textField.text ?? ""
+        let regex = "^[А-Яа-яЁёA-Za-z0-9\\s\\-/'`:;_#,.]{1,100}$"
+        return NSPredicate(format: "SELF MATCHES %@", regex).evaluate(with: street)
+    }
+    
+    func validateHouse() -> Bool {
+        let house = houseView.textField.text ?? ""
+        let regex = "^[А-Яа-яЁёA-Za-z0-9\\s\\-/'`:;_#,.]{1,100}$"
+        return NSPredicate(format: "SELF MATCHES %@", regex).evaluate(with: house)
+    }
+    
+    func validateRoomNumber() -> Bool {
+        let roomNumber = roomNumberView.textField.text ?? ""
+        let regex = "^[А-Яа-яЁёA-Za-z0-9\\s\\-/'`:;_#,.]{0,100}$"
+        return NSPredicate(format: "SELF MATCHES %@", regex).evaluate(with: roomNumber)
+    }
+    
+    func validateNote() -> Bool {
+        let note = noteView.textField.text ?? ""
+        let regex = "^[А-Яа-яЁёA-Za-z0-9\\s\\-/'`:;_#,.]{0,100}$"
+        return NSPredicate(format: "SELF MATCHES %@", regex).evaluate(with: note)
     }
     
     override func leftBarButtonTapped() {

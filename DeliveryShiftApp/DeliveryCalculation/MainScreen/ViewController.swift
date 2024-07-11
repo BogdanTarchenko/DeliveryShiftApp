@@ -1,14 +1,9 @@
-//
-//  ViewController.swift
-//  test
-//
-//  Created by Богдан Тарченко on 04.07.2024.
-//
-
 import SnapKit
 import UIKit
 
 class ViewController: UIViewController, PickButtonViewDelegate {
+    
+    var deliveryInformation = DeliveryInformation()
     
     var backgroundView: UIImageView = {
         let backgroundView = UIImageView(frame: .zero)
@@ -26,7 +21,7 @@ class ViewController: UIViewController, PickButtonViewDelegate {
     var packageSizeLabel = UILabel()
     
     var shippedFromView: PickButtonView = {
-        let shippedFromView = PickButtonView()
+        let shippedFromView = PickButtonView(buttonType: .shippedFromCity)
         shippedFromView.setTitle("Город отправки")
         shippedFromView.setIcon(icon: UIImage(named: "marker"))
         shippedFromView.setValue("Москва")
@@ -35,7 +30,7 @@ class ViewController: UIViewController, PickButtonViewDelegate {
     }()
     
     var shippedToView: PickButtonView = {
-        let shippedToView = PickButtonView()
+        let shippedToView = PickButtonView(buttonType: .shippedToCity)
         shippedToView.setTitle("Город назначения")
         shippedToView.setIcon(icon: UIImage(named: "pointer"))
         shippedToView.setValue("Санкт-Петербург")
@@ -43,7 +38,7 @@ class ViewController: UIViewController, PickButtonViewDelegate {
         return shippedToView
     }()
     var packageSizeView: PickButtonView = {
-        let packageSizeView = PickButtonView()
+        let packageSizeView = PickButtonView(buttonType: .packageSize)
         packageSizeView.setTitle("Размер посылки")
         packageSizeView.setIcon(icon: UIImage(named: "email.pdf"))
         packageSizeView.setValue("Конверт")
@@ -135,7 +130,7 @@ class ViewController: UIViewController, PickButtonViewDelegate {
     }
     
     @objc func showShippingMethodScreen() {
-        let shippingMethodViewController = ShippingMethodViewController()
+        let shippingMethodViewController = ShippingMethodViewController(deliveryInformation: deliveryInformation)
         let navController = UINavigationController(rootViewController: shippingMethodViewController)
         navController.modalPresentationStyle = .fullScreen
         present(navController, animated: true)
@@ -169,16 +164,73 @@ class ViewController: UIViewController, PickButtonViewDelegate {
         }
     }
     
-    func didTapButton(in view: PickButtonView) {
+    func didTapButton(type: ButtonType) {
         
-        // Тут чтобы при тыке на разные вьюшки открывались разные экраны
-        let shippedFromTableViewController = ShippedFromTableViewController()
-        let navController = UINavigationController(rootViewController: shippedFromTableViewController)
-        navController.modalPresentationStyle = .fullScreen
-        present(navController, animated: true)
+        let shippedFromTableViewController = ShippedFromTableViewController(deliveryInformation: deliveryInformation)
+        let shippedToTableViewController = ShippedToTableViewController(deliveryInformation: deliveryInformation)
+        let packageSizeTableViewController = PackageSizeTableViewController(deliveryInformation: deliveryInformation)
+        
+        switch type {
+            
+        case .shippedFromCity:
+            shippedFromTableViewController.onPointSelected = { [weak self] selectedPoint in
+                self?.shippedFromView.setValue(selectedPoint.name)
+                self?.deliveryInformation.senderPoint = selectedPoint
+            }
+            let navController = UINavigationController(rootViewController: shippedFromTableViewController)
+            navController.modalPresentationStyle = .fullScreen
+            present(navController, animated: true)
+            
+        case .shippedToCity:
+            shippedToTableViewController.onPointSelected = { [weak self] selectedPoint in
+                self?.shippedToView.setValue(selectedPoint.name)
+                self?.deliveryInformation.receiverPoint = selectedPoint
+            }
+            let navController = UINavigationController(rootViewController: shippedToTableViewController)
+            navController.modalPresentationStyle = .fullScreen
+            present(navController, animated: true)
+            
+        case .packageSize:
+            packageSizeTableViewController.onPackageSelected = { [weak self] selectedPackage in
+                self?.packageSizeView.setValue(selectedPackage.name)
+                self?.deliveryInformation.packageType = selectedPackage
+            }
+            let navController = UINavigationController(rootViewController: packageSizeTableViewController)
+            navController.modalPresentationStyle = .formSheet
+            present(navController, animated: true)
+        }
+    }
+    
+    func didSelectPoint(type: ButtonType, point: String) {
+        switch type {
+            
+        case .shippedFromCity:
+            shippedFromView.setValue(point)
+            if (point == "Санкт-Петербург") {
+                deliveryInformation.senderPoint = Point(id: "2", name: "Санкт-Петербург", latitude: 59.9343, longitude: 30.3351)
+            }
+            else if (point == "Новосибирск") {
+                deliveryInformation.senderPoint = Point(id: "3", name: "Новосибирск", latitude: 55.0084, longitude: 82.9357)
+            }
+            else if (point == "Томск") {
+                deliveryInformation.senderPoint = Point(id: "12", name: "Томск", latitude: 58.0104, longitude: 56.2294)
+            }
+        case .shippedToCity:
+            shippedToView.setValue(point)
+            if (point == "Москва") {
+                deliveryInformation.senderPoint = Point(id: "1", name: "Москва", latitude: 55.7558, longitude: 37.6173)
+            }
+            else if (point == "Новосибирск") {
+                deliveryInformation.senderPoint = Point(id: "3", name: "Новосибирск", latitude: 55.0084, longitude: 82.9357)
+            }
+            else if (point == "Томск") {
+                deliveryInformation.senderPoint = Point(id: "12", name: "Томск", latitude: 58.0104, longitude: 56.2294)
+            }
+        case .packageSize: break
+        }
     }
 }
-    
+
 #Preview {
     ViewController()
 }

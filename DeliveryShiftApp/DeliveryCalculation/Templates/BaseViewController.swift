@@ -1,30 +1,25 @@
-//
-//  BaseViewController.swift
-//  DeliveryShiftApp
-//
-//  Created by Богдан Тарченко on 10.07.2024.
-//
-
 import UIKit
 
 class BaseViewController: UIViewController {
-
+    
     let iconImage: String
     let headerView: HeaderView
+    var deliveryInformation: DeliveryInformation
     
-    init(iconImage: String, headerView: HeaderView) {
+    init(iconImage: String, headerView: HeaderView, deliveryInformation: DeliveryInformation) {
         self.iconImage = iconImage
         self.headerView = headerView
+        self.deliveryInformation = deliveryInformation
         super.init(nibName: nil, bundle: nil)
     }
     
     required init?(coder aDecoder: NSCoder) {
         return nil
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         let appearance = UINavigationBarAppearance()
         appearance.configureWithOpaqueBackground()
         appearance.backgroundColor = .white
@@ -41,7 +36,7 @@ class BaseViewController: UIViewController {
         )
         leftBarButtonItem.tintColor = UIColor(named: "IndicatorLightColor")
         navigationItem.leftBarButtonItem = leftBarButtonItem
-            
+        
         navigationController?.navigationBar.standardAppearance = appearance
         navigationController?.navigationBar.scrollEdgeAppearance = appearance
         navigationController?.navigationBar.compactAppearance = appearance

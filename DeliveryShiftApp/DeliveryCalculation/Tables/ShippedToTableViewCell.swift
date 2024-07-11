@@ -1,10 +1,3 @@
-//
-//  ShippedFromTableViewController.swift
-//  DeliveryShiftApp
-//
-//  Created by Богдан Тарченко on 10.07.2024.
-//
-
 import UIKit
 import SnapKit
 
@@ -13,25 +6,27 @@ class ShippedToTableViewController: BaseViewController, UITableViewDelegate, UIT
     private var networkManager = NetworkManager()
     private var points: [Point] = []
     private let tableView = UITableView()
-
-    init() {
+    
+    var onPointSelected: ((Point) -> Void)?
+    
+    init(deliveryInformation: DeliveryInformation) {
         let headerView: HeaderView = {
             let headerView = HeaderView()
             headerView.setTitle("Куда")
             return headerView
         }()
         
-        super.init(iconImage: "cross.pdf", headerView: headerView)
+        super.init(iconImage: "cross.pdf", headerView: headerView, deliveryInformation: deliveryInformation)
     }
     
-    required init?(coder aDecoder: NSCoder) {
-        return nil
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-
+        
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(PointTableViewCell.self, forCellReuseIdentifier: "PointCell")
@@ -47,8 +42,9 @@ class ShippedToTableViewController: BaseViewController, UITableViewDelegate, UIT
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
             make.trailing.equalToSuperview().inset(16)
         }
+        tableView.separatorStyle = .none
     }
-
+    
     override func leftBarButtonTapped() {
         dismiss(animated: true)
     }
@@ -79,6 +75,9 @@ class ShippedToTableViewController: BaseViewController, UITableViewDelegate, UIT
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let selectedPoint = points[indexPath.row]
+        onPointSelected?(selectedPoint)
         tableView.deselectRow(at: indexPath, animated: true)
+        dismiss(animated: true)
     }
 }

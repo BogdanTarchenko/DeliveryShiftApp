@@ -1,27 +1,20 @@
-//
-//  ReceiverViewController.swift
-//  DeliveryShiftApp
-//
-//  Created by Богдан Тарченко on 09.07.2024.
-//
-
 import UIKit
 import SnapKit
 
 class ReceiverViewController: BaseViewController, ButtonViewDelegate {
     
-    init() {
+    init(deliveryInformation: DeliveryInformation) {
         let headerView: HeaderView = {
             let headerView = HeaderView()
             headerView.setTitle("Получатель")
             return headerView
         }()
         
-        super.init(iconImage: "arrow-left.pdf", headerView: headerView)
+        super.init(iconImage: "arrow-left.pdf", headerView: headerView, deliveryInformation: deliveryInformation)
     }
     
-    required init?(coder aDecoder: NSCoder) {
-        return nil
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
     }
     
     var surnameView: TextFieldView = {
@@ -53,7 +46,7 @@ class ReceiverViewController: BaseViewController, ButtonViewDelegate {
         buttonView.setButtonTitle("Продолжить")
         return buttonView
     }()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -113,8 +106,58 @@ class ReceiverViewController: BaseViewController, ButtonViewDelegate {
     }
     
     func didTapButton(in view: ButtonView) {
-        let senderViewController = SenderViewController()
-        navigationController?.pushViewController(senderViewController, animated: true)
+        if validateInputs() {
+            deliveryInformation.receiver?.name = nameView.textField.text ?? ""
+            deliveryInformation.receiver?.surname = surnameView.textField.text ?? ""
+            deliveryInformation.receiver?.patronymic = patronymicView.textField.text
+            deliveryInformation.receiver?.phoneNumber = phoneNumberView.textField.text ?? ""
+            let senderViewController = SenderViewController(deliveryInformation: deliveryInformation)
+            navigationController?.pushViewController(senderViewController, animated: true)
+        } 
+        
+        // Не забыть сделать адекватное отображение неккоректного поля с указанием ошибки + найти компактный способ проверять на использование единого алфавита
+        else {
+            if (!validateSurname()) {
+                surnameView.textField.text = ""
+            }
+            if (!validateName()) {
+                nameView.textField.text = ""
+            }
+            if (!validatePatronymic()) {
+                patronymicView.textField.text = ""
+            }
+            if (!validatePhoneNumber()) {
+                phoneNumberView.textField.text = ""
+            }
+        }
+    }
+    
+    func validateInputs() -> Bool {
+        return validateSurname() && validateName() && validatePatronymic() && validatePhoneNumber()
+    }
+    
+    func validateSurname() -> Bool {
+        let surname = surnameView.textField.text ?? ""
+        let regex = "^[А-Яа-яЁёA-Za-z\\s`'-]{1,60}$"
+        return NSPredicate(format: "SELF MATCHES %@", regex).evaluate(with: surname)
+    }
+    
+    func validateName() -> Bool {
+        let name = nameView.textField.text ?? ""
+        let regex = "^[А-Яа-яЁёA-Za-z\\s`'-]{1,60}$"
+        return NSPredicate(format: "SELF MATCHES %@", regex).evaluate(with: name)
+    }
+    
+    func validatePatronymic() -> Bool {
+        let patronymic = patronymicView.textField.text ?? ""
+        let regex = "^[А-Яа-яЁёA-Za-z\\s`'-]{0,60}$"
+        return NSPredicate(format: "SELF MATCHES %@", regex).evaluate(with: patronymic)
+    }
+    
+    func validatePhoneNumber() -> Bool {
+        let phoneNumber = phoneNumberView.textField.text ?? ""
+        let regex = "^[0-9]{11}$"
+        return NSPredicate(format: "SELF MATCHES %@", regex).evaluate(with: phoneNumber)
     }
     
     override func leftBarButtonTapped() {
