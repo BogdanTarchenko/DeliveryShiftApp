@@ -8,7 +8,7 @@ struct DeliveryOrderRequest: Encodable {
     let receiverAddress: ReceiverAddressRequest
     let receiver: Receiver
     let payer: String
-    let options: OptionsRequest
+    let option: OptionsRequest
 }
 
 struct SenderPointRequest: Encodable {
@@ -21,14 +21,14 @@ struct SenderPointRequest: Encodable {
 struct SenderAddressRequest: Encodable {
     let street: String
     let house: String
-    let apartment: String
-    let comment: String
+    let apartment: String?
+    let comment: String?
 }
 
 struct Sender: Encodable {
     let firstname: String
     let lastname: String
-    let middlename: String
+    let middlename: String?
     let phone: String
 }
 
@@ -42,14 +42,14 @@ struct ReceiverPointRequest: Encodable {
 struct ReceiverAddressRequest: Encodable {
     let street: String
     let house: String
-    let apartment: String
-    let comment: String
+    let apartment: String?
+    let comment: String?
 }
 
 struct Receiver: Encodable {
     let firstname: String
     let lastname: String
-    let middlename: String
+    let middlename: String?
     let phone: String
 }
 

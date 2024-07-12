@@ -129,6 +129,10 @@ class ReceiverReplicViewController: BaseViewController, ButtonViewDelegate {
             if (!validatePhoneNumber()) {
                 phoneNumberView.textField.text = ""
             }
+            let alert = UIAlertController(title: "Ошибка в заполнении данных", message: "Неправильно заполненные поля были очищены", preferredStyle: .alert)
+            
+            alert.addAction(UIAlertAction(title: "Ок", style: .default))
+            self.present(alert, animated: true)
         }
     }
     

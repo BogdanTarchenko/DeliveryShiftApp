@@ -231,9 +231,9 @@
 				FCB0B7AA2C4117E6005763AF /* FormsReplics */,
 				FCB0B7762C3C792F005763AF /* ReceiverViewController.swift */,
 				FCB0B7792C3D5E0F005763AF /* SenderViewController.swift */,
-				FCB0B7A02C402912005763AF /* WhoPayForDeliveryViewController.swift */,
 				FCB0B77B2C3D762F005763AF /* WhereToPickUpViewController.swift */,
 				FCB0B77D2C3D78DE005763AF /* WhereToDeliverViewController.swift */,
+				FCB0B7A02C402912005763AF /* WhoPayForDeliveryViewController.swift */,
 				FCB0B7A42C404809005763AF /* DataCheckViewController.swift */,
 			);
 			path = Forms;

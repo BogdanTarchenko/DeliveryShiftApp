@@ -129,6 +129,10 @@ class WhereToPickUpViewController: BaseViewController, ButtonViewDelegate {
             if (!validateNote()) {
                 noteView.textField.text = ""
             }
+            let alert = UIAlertController(title: "Ошибка в заполнении данных", message: "Неправильно заполненные поля были очищены", preferredStyle: .alert)
+            
+            alert.addAction(UIAlertAction(title: "Ок", style: .default))
+            self.present(alert, animated: true)
         }
     }
     
@@ -150,7 +154,7 @@ class WhereToPickUpViewController: BaseViewController, ButtonViewDelegate {
     
     func validateRoomNumber() -> Bool {
         let roomNumber = roomNumberView.textField.text ?? ""
-        let regex = "^[А-Яа-яЁёA-Za-z0-9\\s\\-/'`:;_#,.]{0,100}$"
+        let regex = "^[А-Яа-яЁёA-Za-z0-9\\s\\-/'`:;_#,.]{1,100}$"
         return NSPredicate(format: "SELF MATCHES %@", regex).evaluate(with: roomNumber)
     }
     

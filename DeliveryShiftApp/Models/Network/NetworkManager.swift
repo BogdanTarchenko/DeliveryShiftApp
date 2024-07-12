@@ -70,6 +70,7 @@ final class NetworkManager {
         modifyRequest(urlRequest: &urlRequest, api: api)
         
         let task = URLSession.shared.dataTask(with: urlRequest) { data, response, error in
+            //            print(String(data: data!, encoding: .utf8))
             if let _ = error {
                 completion(.failure(.error))
                 return

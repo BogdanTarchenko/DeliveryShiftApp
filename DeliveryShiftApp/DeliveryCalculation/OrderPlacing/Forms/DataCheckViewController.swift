@@ -163,7 +163,7 @@ class DataCheckViewController: BaseViewController, ButtonViewDelegate, DataCardV
     }
     
     func configureSenderPointCardView() {
-        senderPointCardView.setFirstData("г. \(deliveryInformation.senderPoint?.name ?? ""), ул. \(deliveryInformation.sender?.street ?? ""), д. \(deliveryInformation.sender?.house ?? "")")
+        senderPointCardView.setFirstData("г. \(deliveryInformation.senderPoint?.name ?? ""), ул. \(deliveryInformation.sender?.street ?? ""), д. \(deliveryInformation.sender?.house ?? ""), кв. \(deliveryInformation.sender?.roomNumber ?? "")")
         senderPointCardView.setSecondData("\(deliveryInformation.sender?.note ?? "")")
         
         senderPointCardView.snp.makeConstraints { make in
@@ -173,7 +173,7 @@ class DataCheckViewController: BaseViewController, ButtonViewDelegate, DataCardV
     }
     
     func configureReceiverPointCardView() {
-        receiverPointCardView.setFirstData("г. \(deliveryInformation.receiverPoint?.name ?? ""), ул. \(deliveryInformation.receiver?.street ?? ""), д. \(deliveryInformation.receiver?.house ?? "")")
+        receiverPointCardView.setFirstData("г. \(deliveryInformation.receiverPoint?.name ?? ""), ул. \(deliveryInformation.receiver?.street ?? ""), д. \(deliveryInformation.receiver?.house ?? ""), кв. \(deliveryInformation.receiver?.roomNumber ?? "")")
         receiverPointCardView.setSecondData("\(deliveryInformation.receiver?.note ?? "")")
         
         receiverPointCardView.snp.makeConstraints { make in
@@ -297,21 +297,24 @@ class DataCheckViewController: BaseViewController, ButtonViewDelegate, DataCardV
         guard let price = deliveryInformation.deliveryPrice else {return}
         guard let name = deliveryInformation.name else {return}
         guard let type = deliveryInformation.deliveryType else {return}
-        let options = OptionsRequest(id: id, days: days, price: price, name: name, type: type)
+        let option = OptionsRequest(id: id, days: days, price: price, name: name, type: type)
         
         /// REQUEST
-        let deliveryOrderRequest = DeliveryOrderRequest(senderPoint: senderPoint, senderAddress: senderAdress, sender: sender, receiverPoint: receiverPoint, receiverAddress: receiverAddress, receiver: receiver, payer: deliveryInformation.whoPay ?? "", options: options)
+        let deliveryOrderRequest = DeliveryOrderRequest(senderPoint: senderPoint, senderAddress: senderAdress, sender: sender, receiverPoint: receiverPoint, receiverAddress: receiverAddress, receiver: receiver, payer: deliveryInformation.whoPay ?? "", option: option)
         
         /// FETCH
         networkManager.fetch(api: .order(request: deliveryOrderRequest), resultType: DeliveryOrderResponse.self) { result in
             DispatchQueue.main.async {
                 switch result {
                 case .success(let response):
-                    let status = response.status
-                    let cancellable = response.cancellable
+                    let status = response.order.status
+                    let cancellable = response.order.cancellable
                     print("Заказ успешно оформлен. \(status) \(cancellable)")
                 case .failure(let error):
-                    print(error.localizedDescription)
+                    // Обработка ошибок
+                    let alert = UIAlertController(title: "Ошибка", message: "Произошла ошибка при попытке оформить заказ", preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "Ок", style: .default))
+                    self.present(alert, animated: true)
                 }
             }
         }
