@@ -1,7 +1,7 @@
 import UIKit
 import SnapKit
 
-class SenderViewController: BaseViewController, ButtonViewDelegate {
+class SenderReplicViewController: BaseViewController, ButtonViewDelegate {
     
     init(deliveryInformation: DeliveryInformation) {
         let headerView: HeaderView = {
@@ -108,12 +108,12 @@ class SenderViewController: BaseViewController, ButtonViewDelegate {
     func didTapButton(in view: ButtonView) {
         if validateInputs() {
             let sender = Person(name: nameView.textField.text ?? "",
-                                surname: surnameView.textField.text ?? "",
-                                patronymic: patronymicView.textField.text ?? "",
-                                phoneNumber: phoneNumberView.textField.text ?? "", street: "", house: "")
+                                  surname: surnameView.textField.text ?? "",
+                                  patronymic: patronymicView.textField.text ?? "",
+                                  phoneNumber: phoneNumberView.textField.text ?? "", street: "", house: "")
             deliveryInformation.sender = sender
-            let whereToPickUpViewController = WhereToPickUpViewController(deliveryInformation: deliveryInformation)
-            navigationController?.pushViewController(whereToPickUpViewController, animated: true)
+            let dataCheckViewController = DataCheckViewController(deliveryInformation: deliveryInformation)
+            dismiss(animated: true)
         }
         
         // Не забыть сделать адекватное отображение неккоректного поля с указанием ошибки + найти компактный способ проверять на использование единого алфавита

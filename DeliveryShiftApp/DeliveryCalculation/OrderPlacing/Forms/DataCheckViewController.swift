@@ -2,6 +2,7 @@ import UIKit
 import SnapKit
 
 class DataCheckViewController: BaseViewController, ButtonViewDelegate, DataCardViewDelegate {
+    private let networkManager = NetworkManager()
     
     init(deliveryInformation: DeliveryInformation) {
         let headerView: HeaderView = {
@@ -162,7 +163,7 @@ class DataCheckViewController: BaseViewController, ButtonViewDelegate, DataCardV
     }
     
     func configureSenderPointCardView() {
-        senderPointCardView.setFirstData("г. \(deliveryInformation.senderPoint?.name ?? ""), ул. \(deliveryInformation.sender?.street ?? ""), д. \(deliveryInformation.sender?.house ?? "") \(deliveryInformation.sender?.patronymic ?? "")")
+        senderPointCardView.setFirstData("г. \(deliveryInformation.senderPoint?.name ?? ""), ул. \(deliveryInformation.sender?.street ?? ""), д. \(deliveryInformation.sender?.house ?? "")")
         senderPointCardView.setSecondData("\(deliveryInformation.sender?.note ?? "")")
         
         senderPointCardView.snp.makeConstraints { make in
@@ -172,7 +173,7 @@ class DataCheckViewController: BaseViewController, ButtonViewDelegate, DataCardV
     }
     
     func configureReceiverPointCardView() {
-        receiverPointCardView.setFirstData("г. \(deliveryInformation.receiverPoint?.name ?? ""), ул. \(deliveryInformation.receiver?.street ?? ""), д. \(deliveryInformation.receiver?.house ?? "") \(deliveryInformation.receiver?.patronymic ?? "")")
+        receiverPointCardView.setFirstData("г. \(deliveryInformation.receiverPoint?.name ?? ""), ул. \(deliveryInformation.receiver?.street ?? ""), д. \(deliveryInformation.receiver?.house ?? "")")
         receiverPointCardView.setSecondData("\(deliveryInformation.receiver?.note ?? "")")
         
         receiverPointCardView.snp.makeConstraints { make in
@@ -191,11 +192,21 @@ class DataCheckViewController: BaseViewController, ButtonViewDelegate, DataCardV
     }
     
     func configureDeliveryTypeLabel() {
-        deliveryTypeLabel.text = "Тариф: \(deliveryInformation.deliveryType ?? "")"
-        
-        deliveryTypeLabel.snp.makeConstraints { make in
-            make.leading.trailing.equalToSuperview().inset(16)
-            make.top.equalTo(priceLabel.snp.bottom).offset(16)
+        if (deliveryInformation.deliveryType == "EXPRESS") {
+            deliveryTypeLabel.text = "Тариф: Экспресс доставка до двери"
+            
+            deliveryTypeLabel.snp.makeConstraints { make in
+                make.leading.trailing.equalToSuperview().inset(16)
+                make.top.equalTo(priceLabel.snp.bottom).offset(16)
+            }
+        }
+        else {
+            deliveryTypeLabel.text = "Тариф: Обычная доставка"
+            
+            deliveryTypeLabel.snp.makeConstraints { make in
+                make.leading.trailing.equalToSuperview().inset(16)
+                make.top.equalTo(priceLabel.snp.bottom).offset(16)
+            }
         }
     }
     
@@ -225,26 +236,85 @@ class DataCheckViewController: BaseViewController, ButtonViewDelegate, DataCardV
     func didTapIcon(type: DataCardType){
         switch type {
         case .receiver:
-            let receiverViewController = ReceiverViewController(deliveryInformation: deliveryInformation)
-            navigationController?.pushViewController(receiverViewController, animated: true)
+            let receiverViewController = ReceiverReplicViewController(deliveryInformation: deliveryInformation)
+            present(receiverViewController, animated: true)
             
         case .sender:
-            let senderViewController = SenderViewController(deliveryInformation: deliveryInformation)
-            navigationController?.pushViewController(senderViewController, animated: true)
+            let senderViewController = SenderReplicViewController(deliveryInformation: deliveryInformation)
+            present(senderViewController, animated: true)
             
         case .senderPoint:
-            let senderPointViewController = WhereToPickUpViewController(deliveryInformation: deliveryInformation)
-            navigationController?.pushViewController(senderPointViewController, animated: true)
+            let senderPointViewController = WhereToPickUpReplicViewController(deliveryInformation: deliveryInformation)
+            present(senderPointViewController, animated: true)
             
         case .receiverPoint:
-            let receiverPointViewController = WhereToDeliverViewController(deliveryInformation: deliveryInformation)
-            navigationController?.pushViewController(receiverPointViewController, animated: true)
+            let receiverPointViewController = WhereToDeliverReplicViewController(deliveryInformation: deliveryInformation)
+            present(receiverPointViewController, animated: true)
         }
     }
     
     func didTapButton(in view: ButtonView) {
-        let dataCheckViewController = DataCheckViewController(deliveryInformation: deliveryInformation)
-        navigationController?.pushViewController(dataCheckViewController, animated: true)
+        createDeliveryOrder()
+        let successViewController = SuccessViewController(deliveryInformation: deliveryInformation)
+        navigationController?.pushViewController(successViewController, animated: true)
+    }
+    
+    func createDeliveryOrder() {
+        
+        /// SENDER
+        let senderPoint = SenderPointRequest(id: deliveryInformation.senderPoint?.id ?? "", name: deliveryInformation.senderPoint?.name ?? "", latitude: deliveryInformation.senderPoint?.latitude ?? 0, longitude: deliveryInformation.senderPoint?.longitude ?? 0)
+        
+        guard let senderStreet = deliveryInformation.sender?.street else {return}
+        guard let senderHouse = deliveryInformation.sender?.house else {return}
+        guard let senderApartment = deliveryInformation.sender?.roomNumber else {return}
+        guard let senderComment = deliveryInformation.sender?.note else {return}
+        let senderAdress = SenderAddressRequest(street: senderStreet, house: senderHouse, apartment: senderApartment, comment: senderComment)
+        
+        guard let senderFirstName = deliveryInformation.sender?.name else {return}
+        guard let senderLastName = deliveryInformation.sender?.surname else {return}
+        guard let senderMiddleName = deliveryInformation.sender?.patronymic else {return}
+        guard let senderPhone = deliveryInformation.sender?.phoneNumber else {return}
+        let sender = Sender(firstname: senderFirstName, lastname: senderLastName, middlename: senderMiddleName, phone: senderPhone)
+        
+        /// RECEIVER
+        let receiverPoint = ReceiverPointRequest(id: deliveryInformation.receiverPoint?.id ?? "", name: deliveryInformation.receiverPoint?.name ?? "", latitude: deliveryInformation.receiverPoint?.latitude ?? 0, longitude: deliveryInformation.receiverPoint?.longitude ?? 0)
+        
+        guard let receiverStreet = deliveryInformation.receiver?.street else {return}
+        guard let receiverHouse = deliveryInformation.receiver?.house else {return}
+        guard let receiverApartment = deliveryInformation.receiver?.roomNumber else {return}
+        guard let receiverComment = deliveryInformation.receiver?.note else {return}
+        let receiverAddress = ReceiverAddressRequest(street: receiverStreet, house: receiverHouse, apartment: receiverApartment, comment: receiverComment)
+        
+        guard let receiverFirstName = deliveryInformation.receiver?.name else {return}
+        guard let receiverLastName = deliveryInformation.receiver?.surname else {return}
+        guard let receiverMiddleName = deliveryInformation.receiver?.patronymic else {return}
+        guard let receiverPhone = deliveryInformation.receiver?.phoneNumber else {return}
+        let receiver = Receiver(firstname: receiverFirstName, lastname: receiverLastName, middlename: receiverMiddleName, phone: receiverPhone)
+        
+        /// OPTIONS
+        guard let id = deliveryInformation.id else {return}
+        guard let days = deliveryInformation.deliveryTime else {return}
+        guard let price = deliveryInformation.deliveryPrice else {return}
+        guard let name = deliveryInformation.name else {return}
+        guard let type = deliveryInformation.deliveryType else {return}
+        let options = OptionsRequest(id: id, days: days, price: price, name: name, type: type)
+        
+        /// REQUEST
+        let deliveryOrderRequest = DeliveryOrderRequest(senderPoint: senderPoint, senderAddress: senderAdress, sender: sender, receiverPoint: receiverPoint, receiverAddress: receiverAddress, receiver: receiver, payer: deliveryInformation.whoPay ?? "", options: options)
+        
+        /// FETCH
+        networkManager.fetch(api: .order(request: deliveryOrderRequest), resultType: DeliveryOrderResponse.self) { result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let response):
+                    let status = response.status
+                    let cancellable = response.cancellable
+                    print("Заказ успешно оформлен. \(status) \(cancellable)")
+                case .failure(let error):
+                    print(error.localizedDescription)
+                }
+            }
+        }
     }
     
     override func leftBarButtonTapped() {

@@ -107,10 +107,10 @@ class WhoPayForDeliveryViewController: BaseViewController, ButtonViewDelegate {
     func didTapButton(in view: ButtonView) {
         
         if (receiverCheckBoxView.isChosen) {
-            deliveryInformation.whoPay = "receiver"
+            deliveryInformation.whoPay = "RECEIVER"
         }
         else {
-            deliveryInformation.whoPay = "sender"
+            deliveryInformation.whoPay = "SENDER"
         }
         
         let dataCheckViewController = DataCheckViewController(deliveryInformation: deliveryInformation)

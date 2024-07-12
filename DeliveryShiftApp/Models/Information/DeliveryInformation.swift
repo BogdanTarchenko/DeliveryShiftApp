@@ -11,4 +11,7 @@ struct DeliveryInformation {
     var sender: Person?
     
     var whoPay: String?
+    
+    var id: String?
+    var name: String?
 }

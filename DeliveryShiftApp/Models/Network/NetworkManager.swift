@@ -26,38 +26,28 @@ enum Api {
     case points
     case types
     case calc(request: Encodable)
-    case otp(request: Encodable)
-    case auth(request: Encodable)
-    case catalog
-    case cancel(request: Encodable)
+    case order(request: Encodable)
     
     var endpoint: String {
         switch self {
-        case .otp:        return "auth/otp"
-        case .auth:       return "users/signin"
-        case .catalog:    return "pizza/catalog"
-        case .cancel:     return "pizza/orders/cancel"
         case .points:     return "delivery/points"
         case .types:      return "delivery/package/types"
         case .calc:       return "delivery/calc"
+        case .order:      return "delivery/order"
         }
     }
     
     var method: Method {
         switch self {
-        case .otp(let request):                return .post(request: request)
-        case .auth(let request):            return .post(request: request)
-        case .catalog:                        return .get
-        case .cancel(let request):            return .put(request: request)
         case .points:                       return .get
         case .types:                        return .get
         case .calc(let request):            return .post(request: request)
+        case .order(let request):           return .post(request: request)
         }
     }
     
     var needsAuthorized: Bool {
         switch self {
-        case .cancel:    return true
         default:        return false
         }
     }
@@ -102,7 +92,7 @@ final class NetworkManager {
     
     private func modifyRequest(urlRequest: inout URLRequest, api: Api) {
         switch api {
-        case .otp(let request), .auth(let request), .cancel(let request), .calc(let request):
+        case .calc(let request), .order(let request):
             urlRequest.setValue("application/json", forHTTPHeaderField: "Content-Type")
             do {
                 let jsonData = try JSONEncoder().encode(request)
@@ -116,7 +106,7 @@ final class NetworkManager {
                 guard let token else { return }
                 urlRequest.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
             }
-        case .catalog, .points, .types:
+        case .points, .types:
             break
         }
     }

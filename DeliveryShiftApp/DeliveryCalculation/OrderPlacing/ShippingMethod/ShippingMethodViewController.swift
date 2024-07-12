@@ -36,6 +36,8 @@ class ShippingMethodViewController: BaseViewController, DeliveryTypeViewDelegate
     var deliveryUsualPrice: Int?
     var deliveryExpressTime: Int?
     var deliveryUsualTime: Int?
+    var deliveryExpressID: String?
+    var deliveryUsualID: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -86,6 +88,7 @@ class ShippingMethodViewController: BaseViewController, DeliveryTypeViewDelegate
                     let usualPrice = response.options[0].price
                     self.usualDeliveryView.setPrice("\(usualPrice) ₽")
                     self.deliveryUsualPrice = usualPrice
+                    self.deliveryUsualID = response.options[0].id
                     
                     let usualTime = response.options[0].days
                     self.usualDeliveryView.setDeliveryTime("\(self.daysString(usualTime))")
@@ -94,6 +97,7 @@ class ShippingMethodViewController: BaseViewController, DeliveryTypeViewDelegate
                     let expressPrice = response.options[1].price
                     self.expressDeliveryView.setPrice("\(expressPrice) ₽")
                     self.deliveryExpressPrice = expressPrice
+                    self.deliveryExpressID = response.options[1].id
                     
                     let expressTime = response.options[1].days
                     self.expressDeliveryView.setDeliveryTime("\(self.daysString(expressTime))")
@@ -114,13 +118,17 @@ class ShippingMethodViewController: BaseViewController, DeliveryTypeViewDelegate
     func didTapButton(type: DeliveryType) {
         switch type {
         case .express:
-            deliveryInformation.deliveryType = "Экспресс доставка до двери"
+            deliveryInformation.deliveryType = "EXPRESS"
+            deliveryInformation.name = "эксперсс доставка"
             deliveryInformation.deliveryPrice = deliveryExpressPrice
             deliveryInformation.deliveryTime = deliveryExpressTime
+            deliveryInformation.id = deliveryExpressID
         case .usual:
-            deliveryInformation.deliveryType = "Обычная доставка"
+            deliveryInformation.deliveryType = "DEFAULT"
+            deliveryInformation.name = "стандартная доставка"
             deliveryInformation.deliveryPrice = deliveryUsualPrice
             deliveryInformation.deliveryTime = deliveryUsualTime
+            deliveryInformation.id = deliveryUsualID
         }
         let receiverViewController = ReceiverViewController(deliveryInformation: deliveryInformation)
         navigationController?.pushViewController(receiverViewController, animated: true)

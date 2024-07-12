@@ -42,6 +42,13 @@
 		FCB0B7A32C4038CF005763AF /* CheckBoxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCB0B7A22C4038CF005763AF /* CheckBoxView.swift */; };
 		FCB0B7A52C404809005763AF /* DataCheckViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCB0B7A42C404809005763AF /* DataCheckViewController.swift */; };
 		FCB0B7A72C407222005763AF /* DataCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCB0B7A62C407222005763AF /* DataCardView.swift */; };
+		FCB0B7AC2C41181D005763AF /* ReceiverReplicViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCB0B7AB2C41181D005763AF /* ReceiverReplicViewController.swift */; };
+		FCB0B7AE2C41199A005763AF /* SenderReplicViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCB0B7AD2C41199A005763AF /* SenderReplicViewController.swift */; };
+		FCB0B7B02C4119E3005763AF /* WhereToPickUpReplicViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCB0B7AF2C4119E3005763AF /* WhereToPickUpReplicViewController.swift */; };
+		FCB0B7B22C411A15005763AF /* WhereToDeliverReplicViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCB0B7B12C411A15005763AF /* WhereToDeliverReplicViewController.swift */; };
+		FCB0B7B62C411EC8005763AF /* SuccessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCB0B7B52C411EC8005763AF /* SuccessViewController.swift */; };
+		FCB0B7B82C412505005763AF /* DeliveryOrderRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCB0B7B72C412505005763AF /* DeliveryOrderRequest.swift */; };
+		FCB0B7BA2C412720005763AF /* DeliveryOrderResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCB0B7B92C412720005763AF /* DeliveryOrderResponse.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -81,6 +88,13 @@
 		FCB0B7A22C4038CF005763AF /* CheckBoxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckBoxView.swift; sourceTree = "<group>"; };
 		FCB0B7A42C404809005763AF /* DataCheckViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataCheckViewController.swift; sourceTree = "<group>"; };
 		FCB0B7A62C407222005763AF /* DataCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataCardView.swift; sourceTree = "<group>"; };
+		FCB0B7AB2C41181D005763AF /* ReceiverReplicViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReceiverReplicViewController.swift; sourceTree = "<group>"; };
+		FCB0B7AD2C41199A005763AF /* SenderReplicViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SenderReplicViewController.swift; sourceTree = "<group>"; };
+		FCB0B7AF2C4119E3005763AF /* WhereToPickUpReplicViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhereToPickUpReplicViewController.swift; sourceTree = "<group>"; };
+		FCB0B7B12C411A15005763AF /* WhereToDeliverReplicViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WhereToDeliverReplicViewController.swift; sourceTree = "<group>"; };
+		FCB0B7B52C411EC8005763AF /* SuccessViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuccessViewController.swift; sourceTree = "<group>"; };
+		FCB0B7B72C412505005763AF /* DeliveryOrderRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeliveryOrderRequest.swift; sourceTree = "<group>"; };
+		FCB0B7B92C412720005763AF /* DeliveryOrderResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeliveryOrderResponse.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,7 +130,6 @@
 			children = (
 				FCB0B7812C3E6D6F005763AF /* Models */,
 				FC7B9F292C39B2E800819F84 /* DeliveryCalculation */,
-				FCB0B77F2C3E6C15005763AF /* NetworkManager.swift */,
 				FC6D62CF2C347F6500A47C18 /* Application */,
 				FC6D62D62C35299800A47C18 /* History */,
 				FC6D62D72C3529B600A47C18 /* Profile */,
@@ -175,7 +188,6 @@
 			isa = PBXGroup;
 			children = (
 				FC7B9F302C39B34600819F84 /* ViewController.swift */,
-				FC7B9F2A2C39B2FD00819F84 /* PickButtonView.swift */,
 			);
 			path = MainScreen;
 			sourceTree = "<group>";
@@ -193,6 +205,7 @@
 			children = (
 				FC7B9F332C3AA84600819F84 /* ShippingMethod */,
 				FCB0B7782C3D5DEA005763AF /* Forms */,
+				FCB0B7B52C411EC8005763AF /* SuccessViewController.swift */,
 			);
 			path = OrderPlacing;
 			sourceTree = "<group>";
@@ -207,6 +220,7 @@
 				FCB0B7882C3E9802005763AF /* BaseViewController.swift */,
 				FCB0B7A22C4038CF005763AF /* CheckBoxView.swift */,
 				FCB0B7A62C407222005763AF /* DataCardView.swift */,
+				FC7B9F2A2C39B2FD00819F84 /* PickButtonView.swift */,
 			);
 			path = Templates;
 			sourceTree = "<group>";
@@ -214,11 +228,12 @@
 		FCB0B7782C3D5DEA005763AF /* Forms */ = {
 			isa = PBXGroup;
 			children = (
+				FCB0B7AA2C4117E6005763AF /* FormsReplics */,
 				FCB0B7762C3C792F005763AF /* ReceiverViewController.swift */,
 				FCB0B7792C3D5E0F005763AF /* SenderViewController.swift */,
+				FCB0B7A02C402912005763AF /* WhoPayForDeliveryViewController.swift */,
 				FCB0B77B2C3D762F005763AF /* WhereToPickUpViewController.swift */,
 				FCB0B77D2C3D78DE005763AF /* WhereToDeliverViewController.swift */,
-				FCB0B7A02C402912005763AF /* WhoPayForDeliveryViewController.swift */,
 				FCB0B7A42C404809005763AF /* DataCheckViewController.swift */,
 			);
 			path = Forms;
@@ -227,9 +242,9 @@
 		FCB0B7812C3E6D6F005763AF /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				FCB0B7B42C411B93005763AF /* Network */,
+				FCB0B7B32C411B5F005763AF /* Information */,
 				FCB0B7822C3E6D7B005763AF /* DeliveryModel */,
-				FCB0B79E2C400394005763AF /* Person.swift */,
-				FCB0B79C2C40009D005763AF /* DeliveryInformation.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -241,6 +256,8 @@
 				FCB0B7922C3FBF04005763AF /* DeliveryPackageTypesResponse.swift */,
 				FCB0B7962C3FCB0E005763AF /* DeliveryCalcRequest.swift */,
 				FCB0B7982C3FCBB8005763AF /* DeliveryCalcResponse.swift */,
+				FCB0B7B72C412505005763AF /* DeliveryOrderRequest.swift */,
+				FCB0B7B92C412720005763AF /* DeliveryOrderResponse.swift */,
 			);
 			path = DeliveryModel;
 			sourceTree = "<group>";
@@ -255,6 +272,34 @@
 				FCB0B7942C3FC06E005763AF /* PackageTableViewCell.swift */,
 			);
 			path = Tables;
+			sourceTree = "<group>";
+		};
+		FCB0B7AA2C4117E6005763AF /* FormsReplics */ = {
+			isa = PBXGroup;
+			children = (
+				FCB0B7AB2C41181D005763AF /* ReceiverReplicViewController.swift */,
+				FCB0B7AD2C41199A005763AF /* SenderReplicViewController.swift */,
+				FCB0B7AF2C4119E3005763AF /* WhereToPickUpReplicViewController.swift */,
+				FCB0B7B12C411A15005763AF /* WhereToDeliverReplicViewController.swift */,
+			);
+			path = FormsReplics;
+			sourceTree = "<group>";
+		};
+		FCB0B7B32C411B5F005763AF /* Information */ = {
+			isa = PBXGroup;
+			children = (
+				FCB0B79E2C400394005763AF /* Person.swift */,
+				FCB0B79C2C40009D005763AF /* DeliveryInformation.swift */,
+			);
+			path = Information;
+			sourceTree = "<group>";
+		};
+		FCB0B7B42C411B93005763AF /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				FCB0B77F2C3E6C15005763AF /* NetworkManager.swift */,
+			);
+			path = Network;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -333,8 +378,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FCB0B7B82C412505005763AF /* DeliveryOrderRequest.swift in Sources */,
 				FC7B9F312C39B34600819F84 /* ViewController.swift in Sources */,
 				FCB0B78F2C3EAB01005763AF /* ShippedToTableViewCell.swift in Sources */,
+				FCB0B7B02C4119E3005763AF /* WhereToPickUpReplicViewController.swift in Sources */,
 				FCB0B79D2C40009D005763AF /* DeliveryInformation.swift in Sources */,
 				FCB0B7712C3BD3A4005763AF /* HeaderView.swift in Sources */,
 				FCB0B77A2C3D5E0F005763AF /* SenderViewController.swift in Sources */,
@@ -342,13 +389,17 @@
 				FCB0B7732C3BDE61005763AF /* ButtonView.swift in Sources */,
 				FCB0B7932C3FBF04005763AF /* DeliveryPackageTypesResponse.swift in Sources */,
 				FCB0B7892C3E9802005763AF /* BaseViewController.swift in Sources */,
+				FCB0B7BA2C412720005763AF /* DeliveryOrderResponse.swift in Sources */,
+				FCB0B7B22C411A15005763AF /* WhereToDeliverReplicViewController.swift in Sources */,
 				FCB0B7802C3E6C15005763AF /* NetworkManager.swift in Sources */,
+				FCB0B7B62C411EC8005763AF /* SuccessViewController.swift in Sources */,
 				FCB0B7872C3E6FBB005763AF /* ShippedFromTableViewController.swift in Sources */,
 				FCB0B7A12C402912005763AF /* WhoPayForDeliveryViewController.swift in Sources */,
 				FCB0B7752C3C750C005763AF /* TextFieldView.swift in Sources */,
 				FCB0B78B2C3EA123005763AF /* PointTableViewCell.swift in Sources */,
 				FC7B9F2D2C39B32100819F84 /* SecondViewController.swift in Sources */,
 				FCB0B7A32C4038CF005763AF /* CheckBoxView.swift in Sources */,
+				FCB0B7AE2C41199A005763AF /* SenderReplicViewController.swift in Sources */,
 				FC7B9F352C3B1BEC00819F84 /* ShippingMethodViewController.swift in Sources */,
 				FC7B9F2F2C39B33800819F84 /* ThirdViewController.swift in Sources */,
 				FCB0B7992C3FCBB8005763AF /* DeliveryCalcResponse.swift in Sources */,
@@ -356,6 +407,7 @@
 				FCB0B79F2C400394005763AF /* Person.swift in Sources */,
 				FCB0B77C2C3D762F005763AF /* WhereToPickUpViewController.swift in Sources */,
 				FCB0B7912C3FBEBE005763AF /* PackageSizeTableViewController.swift in Sources */,
+				FCB0B7AC2C41181D005763AF /* ReceiverReplicViewController.swift in Sources */,
 				FCB0B7842C3E6DA0005763AF /* DeliveryPointsResponse.swift in Sources */,
 				FC7B9F2B2C39B2FD00819F84 /* PickButtonView.swift in Sources */,
 				FC6D62BC2C342E4400A47C18 /* AppDelegate.swift in Sources */,

@@ -1,28 +1,21 @@
-//
-//  SecondViewController.swift
-//  test
-//
-//  Created by Богдан Тарченко on 05.07.2024.
-//
-
 import UIKit
+import SnapKit
 
 class SecondViewController: UIViewController {
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        let label = UILabel()
+        label.text = "В разработке..."
+        label.textColor = UIColor(named: "TextPrimaryColor")
+        label.font = .systemFont(ofSize: 28, weight: .semibold)
+        label.textAlignment = .center
+        
+        view.addSubview(label)
+        
+        label.snp.makeConstraints { make in
+            make.centerX.centerY.equalToSuperview()
+        }
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

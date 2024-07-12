@@ -21,7 +21,7 @@ class DataCardView: UIView {
     private var cardView: UIView = {
         let cardView = UIView()
         cardView.backgroundColor = UIColor(named: "BGSecondaryColor")
-        cardView.layer.cornerRadius = 8
+        cardView.layer.cornerRadius = 16
         return cardView
     }()
     
@@ -44,6 +44,7 @@ class DataCardView: UIView {
         label.font = .systemFont(ofSize: 12)
         label.textAlignment = .left
         label.textColor = UIColor(named: "TextTertiaryColor")
+        label.numberOfLines = 0
         return label
     }()
     
@@ -52,6 +53,7 @@ class DataCardView: UIView {
         label.font = .systemFont(ofSize: 16)
         label.textAlignment = .left
         label.textColor = UIColor(named: "TextPrimaryColor")
+        label.numberOfLines = 0
         return label
     }()
     
@@ -60,6 +62,7 @@ class DataCardView: UIView {
         label.font = .systemFont(ofSize: 12)
         label.textAlignment = .left
         label.textColor = UIColor(named: "TextTertiaryColor")
+        label.numberOfLines = 0
         return label
     }()
     
@@ -68,6 +71,7 @@ class DataCardView: UIView {
         label.font = .systemFont(ofSize: 16)
         label.textAlignment = .left
         label.textColor = UIColor(named: "TextPrimaryColor")
+        label.numberOfLines = 0
         return label
     }()
     
@@ -75,6 +79,7 @@ class DataCardView: UIView {
         self.dataCardType = dataCardType
         super.init(frame: .zero)
         configureDataCardView()
+        setupGestureRecognizer()
     }
     
     required init?(coder: NSCoder) {
@@ -108,7 +113,7 @@ class DataCardView: UIView {
         
         cardView.addSubview(firstDataLabel)
         firstDataLabel.snp.makeConstraints { make in
-            make.leading.equalToSuperview().inset(16)
+            make.leading.trailing.equalToSuperview().inset(16)
             make.top.equalTo(firstSubTitleLabel.snp.bottom)
         }
         
@@ -120,7 +125,7 @@ class DataCardView: UIView {
         
         cardView.addSubview(secondDataLabel)
         secondDataLabel.snp.makeConstraints { make in
-            make.leading.equalToSuperview().inset(16)
+            make.leading.trailing.equalToSuperview().inset(16)
             make.top.equalTo(secondSubTitleLabel.snp.bottom)
             make.bottom.equalToSuperview().inset(24)
         }

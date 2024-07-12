@@ -107,10 +107,11 @@ class ReceiverViewController: BaseViewController, ButtonViewDelegate {
     
     func didTapButton(in view: ButtonView) {
         if validateInputs() {
-            deliveryInformation.receiver?.name = nameView.textField.text ?? ""
-            deliveryInformation.receiver?.surname = surnameView.textField.text ?? ""
-            deliveryInformation.receiver?.patronymic = patronymicView.textField.text
-            deliveryInformation.receiver?.phoneNumber = phoneNumberView.textField.text ?? ""
+            let receiver = Person(name: nameView.textField.text ?? "",
+                                  surname: surnameView.textField.text ?? "",
+                                  patronymic: patronymicView.textField.text ?? "",
+                                  phoneNumber: phoneNumberView.textField.text ?? "", street: "", house: "")
+            deliveryInformation.receiver = receiver
             let senderViewController = SenderViewController(deliveryInformation: deliveryInformation)
             navigationController?.pushViewController(senderViewController, animated: true)
         } 

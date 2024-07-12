@@ -1,16 +1,16 @@
 import UIKit
 import SnapKit
 
-class SenderViewController: BaseViewController, ButtonViewDelegate {
+class ReceiverReplicViewController: BaseViewController, ButtonViewDelegate {
     
     init(deliveryInformation: DeliveryInformation) {
         let headerView: HeaderView = {
             let headerView = HeaderView()
-            headerView.setTitle("Отправитель")
+            headerView.setTitle("Получатель")
             return headerView
         }()
         
-        super.init(iconImage: "arrow-left.pdf", headerView: headerView, deliveryInformation: deliveryInformation)
+        super.init(iconImage: "cross.pdf", headerView: headerView, deliveryInformation: deliveryInformation)
     }
     
     required init?(coder: NSCoder) {
@@ -107,13 +107,12 @@ class SenderViewController: BaseViewController, ButtonViewDelegate {
     
     func didTapButton(in view: ButtonView) {
         if validateInputs() {
-            let sender = Person(name: nameView.textField.text ?? "",
-                                surname: surnameView.textField.text ?? "",
-                                patronymic: patronymicView.textField.text ?? "",
-                                phoneNumber: phoneNumberView.textField.text ?? "", street: "", house: "")
-            deliveryInformation.sender = sender
-            let whereToPickUpViewController = WhereToPickUpViewController(deliveryInformation: deliveryInformation)
-            navigationController?.pushViewController(whereToPickUpViewController, animated: true)
+            let receiver = Person(name: nameView.textField.text ?? "",
+                                  surname: surnameView.textField.text ?? "",
+                                  patronymic: patronymicView.textField.text ?? "",
+                                  phoneNumber: phoneNumberView.textField.text ?? "", street: "", house: "")
+            deliveryInformation.receiver = receiver
+            dismiss(animated: true)
         }
         
         // Не забыть сделать адекватное отображение неккоректного поля с указанием ошибки + найти компактный способ проверять на использование единого алфавита
